@@ -1,0 +1,167 @@
+/**
+* 表格
+* 每个表格分页的
+ */
+.ivx-table-box {
+  padding: 10px 0;
+
+  .ivu-page {
+    padding-top: 20px;
+    text-align: center;
+  }
+
+  .ivx-table-cell-handle {
+      .ivu-btn {
+        margin-right: 10px;
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+  }
+}
+
+/**
+* 权限 隐藏和显示
+ */
+
+.six-auth-hide{
+  display: none;
+  visibility: hidden;
+}
+
+.six-auth-show{
+
+}
+
+
+/**
+*  弹出框
+*  弹出框默认 ivu-modal-footer 隐藏 并且自定义 footer
+*  放在弹出框 ivu-modal-body 的子元素
+ */
+
+.six-modal-body-inner {
+  padding-bottom: 45px;
+  .ivu-modal-footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #FFF;
+    border-radius: 0 0 6px 6px;
+  }
+}
+
+/**
+
+ */
+.modal-body-padding0 {
+  .ivu-modal-body {
+    padding: 0 0 6px;
+  }
+}
+.six-modal-body-padding0 {
+  padding: 0;
+}
+
+// 弹出框内
+// <div class="ivu-modal-footer six-modal-footer-padding-bottom-0"></div>
+.six-modal-footer-padding-bottom-0 {
+  padding-bottom: 0;
+}
+
+
+// 自定义弹框样式
+
+.custom-modal-style {
+  .ivu-modal-content {
+    background-color: #0a1f57;
+    border: 1px solid #00c6ff;
+    border-radius: 4px;
+
+    .ivu-modal-close {
+      font-size: 10px;
+      .ivu-icon {
+        color: #00c6ff;
+        font-weight: 700;
+      }
+    }
+
+    .ivu-modal-header {
+      border-bottom: 0;
+      padding-bottom: 0;
+
+      > p {
+        color:rgb(51,204,255)
+      }
+    }
+  }
+}
+
+// 自定义表格样式
+.custom-table-style {
+  border: 0;
+
+  .ivu-table {
+    background-color: transparent;
+    color: #FFF;
+
+    .ivu-table-header {
+
+    }
+
+    th {
+      background-color: rgba(51, 204, 255, 0.2);
+      border-bottom: none;
+    }
+    td {
+      background-color: transparent;
+      border-bottom: none
+    }
+
+    &:after {
+      background-color: transparent;
+    }
+    &::before{
+      background-color: transparent;
+    }
+
+  }
+}
+.custom-page-style {
+  color: #FFF;
+
+  .ivu-page-next, .ivu-page-prev {
+    background-color: transparent;
+
+    a {
+      color: #FFF;
+    }
+    &.ivu-page-disabled a {
+      color: #666;
+    }
+  }
+  .ivu-page-item {
+    background-color: transparent;
+    a {
+      color: #FFF;
+    }
+
+    &.ivu-page-item-active a, &.ivu-page-item-active:hover a {
+      color: #2d8cf0;
+    }
+  }
+}
+
+// 表单
+.custom-input-style {
+  .ivu-input, .ivu-select-selection {
+    background-color: transparent;
+    color: #FFF;
+    border-color: #57a3f3;
+  }
+
+  .ivu-select-arrow {
+    color: #57a3f3;
+  }
+}
