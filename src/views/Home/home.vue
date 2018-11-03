@@ -21,21 +21,21 @@
                 <div class="sub-box">
                     <div class="mask" @click="goto('PassengerAnalyze')"></div>
                     <div class="box-title">客流特征分析</div>
-                    <div class="box-content"><img src="./img/sub-bg.png" alt=""></div>
+                    <div class="box-content"><img src="./img/sub-bg-3.png" alt=""></div>
                 </div>
             </i-col>
             <i-col span="8">
                 <div class="sub-box">
                     <div class="mask" @click="goto('ComplaintAnalyze')"></div>
                     <div class="box-title">投诉统计分析</div>
-                    <div class="box-content"><img src="./img/sub-bg.png" alt=""></div>
+                    <div class="box-content"><img src="./img/sub-bg-4.png" alt=""></div>
                 </div>
             </i-col>
             <i-col span="8">
                 <div class="sub-box" @click="goto('DemandAnalyze')">
                     <div class="mask"></div>
                     <div class="box-title">需求特征分析</div>
-                    <div class="box-content"><img src="./img/sub-bg.png" alt=""></div>
+                    <div class="box-content"><img src="./img/sub-bg-5.png" alt=""></div>
                 </div>
             </i-col>
         </Row>

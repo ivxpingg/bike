@@ -63,7 +63,7 @@
             return {
                 searchParams: {
                     current: 1,
-                    size: 10,
+                    size: 7,
                     total: 120,
                     condition: {
                         searchKey: '',
@@ -128,7 +128,7 @@
                 }).then((res) => {
                     this.tableLoading = false;
                     if (res.code === 'SUCCESS') {
-                        debugger
+
                         this.tableData = res.data.records;
                         this.searchParams.total = res.data.total;
                     }

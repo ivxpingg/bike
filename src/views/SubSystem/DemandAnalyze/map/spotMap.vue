@@ -22,6 +22,23 @@
             initBMap('spot_map').then((m) => {
                 this.map = m;
                 this.getData();
+                this.searchParams.current++;
+                setTimeout(() => {
+                    this.getData();
+                    this.searchParams.current++;
+                }, 1000);
+                setTimeout(() => {
+                    this.getData();
+                    this.searchParams.current++;
+                }, 2000);
+                setTimeout(() => {
+                    this.getData();
+                    this.searchParams.current++;
+                }, 3000);
+                setTimeout(() => {
+                    this.getData();
+                    this.searchParams.current++;
+                }, 4000);
                 // this.test2();
             });
         },

@@ -70,7 +70,7 @@
             z-index: 10;
         }
         .router-view {
-            padding-top: 65px;
+            padding-top: 75px;
         }
     }
 </style>

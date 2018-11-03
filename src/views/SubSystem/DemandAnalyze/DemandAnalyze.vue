@@ -1,8 +1,11 @@
 <template>
     <div class="DemandAnalyze-container" style="padding-top: 0px;">
-        <vRlMap v-if="type"></vRlMap>
-
-        <vSpotMap v-if="!type"></vSpotMap>
+        <keep-alive>
+            <vRlMap v-if="type"></vRlMap>
+        </keep-alive>
+        <keep-alive>
+            <vSpotMap v-if="!type"></vSpotMap>
+        </keep-alive>
 
         <Button type="info"
                 class="btn"
