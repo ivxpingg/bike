@@ -46,7 +46,7 @@
             getData() {
                 this.$http({
                     method: 'post',
-                    url: '/bicyclestate/list',
+                    url: '/bikeStatus/list',
                     timeout: 1000000,
                     data: JSON.stringify(this.searchParams)
                 }).then((res) => {
@@ -56,7 +56,7 @@
             test(list) {
                 list.forEach((val) => {
 
-                    let p = val.latLon.split(',');
+                    let p = val.cur_position.split(',');
                     this.points.push({
                         "lng":p[1],
                         "lat":p[0],

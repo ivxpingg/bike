@@ -29,7 +29,7 @@
                     </Select>
                 </FormItem>
                 <FormItem>
-                    <Button type="info" icon="md-cloud-download" size="small">导出</Button>
+                    <Button type="info" icon="md-cloud-download" :to="toDownUrl" size="small" target="_blank">导出</Button>
                 </FormItem>
             </Form>
             <div class="ivx-table-box">
@@ -56,9 +56,15 @@
 
 <script>
     import modalMixin from '../../../../../../lib/mixin/modalMixin';
+    import Config from '../../../../../../config';
     export default {
         name: 'userList',  // 平台用户
         mixins: [modalMixin],
+        computed: {
+            toDownUrl() {
+                return  Config[Config.env].origin + Config[Config.env].ajaxUrl + '/bicycleUser/exportExcel';
+            }
+        },
         data() {
             return {
                 searchParams: {
@@ -73,12 +79,12 @@
                 tableColumns: [
                     { title: '序号', width: 60, type: 'index', },
                     { title: '企业名称', width: 90, align: 'center', key: 'companyName' },
-                    { title: '用户名称', width: 100, align: 'center', key: '2' },
-                    { title: '用户账号', width: 100, align: 'center', key: '3' },
-                    { title: '白鹭分', width: 100, align: 'center', key: '4' },
-                    { title: '押金', width: 100, align: 'center', key: '5' },
+                    { title: '用户名称', width: 100, align: 'center', key: '' },
+                    { title: '用户账号', width: 100, align: 'center', key: '' },
+                    { title: '白鹭分', width: 100, align: 'center', key: 'creditScore' },
+                    { title: '押金', width: 100, align: 'center', key: 'deposit' },
                     { title: '投放日期', width: 120, align: 'center', key: '6' },
-                    { title: '用户状态', width: 90, align: 'center', key: '7' }
+                    { title: '用户状态', width: 90, align: 'center', key: 'status' }
                 ],
                 tableData: [],
                 tableLoading: false,

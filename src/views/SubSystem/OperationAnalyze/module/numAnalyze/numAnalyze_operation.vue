@@ -2,7 +2,7 @@
     <div class="numAnalyze_operation-container">
         <div class="num-panel">
             <div class="title">日营运单车数量</div>
-            <div class="value">3589</div>
+            <div class="value">{{bikeCount}}</div>
             <div class="angle angle-1"></div>
             <div class="angle angle-2"></div>
             <div class="angle angle-3"></div>
@@ -10,7 +10,7 @@
         </div>
         <div class="num-panel" @click="modal_operationStatistics_open">
             <div class="title">日 营 运 里 程</div>
-            <div class="value">3000km</div>
+            <div class="value">{{dailyMileage}}km</div>
             <div class="angle angle-1"></div>
             <div class="angle angle-2"></div>
             <div class="angle angle-3"></div>
@@ -18,7 +18,7 @@
         </div>
         <div class="num-panel" @click="modal_operationStatistics_open">
             <div class="title">总 营 运 次 数</div>
-            <div class="value">2000</div>
+            <div class="value">{{countOperate}}</div>
             <div class="angle angle-1"></div>
             <div class="angle angle-2"></div>
             <div class="angle angle-3"></div>
@@ -26,7 +26,7 @@
         </div>
         <div class="num-panel" @click="modal_bikeStatistics_open">
             <div class="title">单 车 使 用 率</div>
-            <div class="value">62%</div>
+            <div class="value">{{bikeUseRatio}}</div>
             <div class="angle angle-1"></div>
             <div class="angle angle-2"></div>
             <div class="angle angle-3"></div>
@@ -45,7 +45,18 @@
         name: 'numAnalyze_operation',
         components: {vOperationStatistics, vBikeStatistics},
         data() {
-            return {};
+            return {
+                bikeCount: 0,
+                dailyMileage: 0,
+                countOperate: 0,
+                bikeUseRatio: 0
+            };
+        },
+        mounted() {
+            this.getData_bikeCount();
+            this.getData_dailyMileage();
+            this.getData_countOperate();
+            this.getData_bikeUseRatio();
         },
         methods: {
             modal_operationStatistics_open() {
@@ -53,6 +64,47 @@
             },
             modal_bikeStatistics_open() {
                 this.$refs.bikeStatistics.modalValue = true;
+            },
+
+            getData_bikeCount() {
+                this.$http({
+                    method: 'get',
+                    url: '/bikeStatus/countOperateBike'
+                }).then((res) => {
+                    if (res.code === 'SUCCESS') {
+                        this.bikeCount = res.data || 0;
+                    }
+                });
+            },
+            getData_dailyMileage() {
+                this.$http({
+                    method: 'get',
+                    url: '/bikeStatus/dailyMileage'
+                }).then((res) => {
+                    if (res.code === 'SUCCESS') {
+                        this.dailyMileage = parseInt(res.data) || 0;
+                    }
+                });
+            },
+            getData_countOperate() {
+                this.$http({
+                    method: 'get',
+                    url: '/bikeStatus/countOperate'
+                }).then((res) => {
+                    if (res.code === 'SUCCESS') {
+                        this.countOperate = res.data || 0;
+                    }
+                });
+            },
+            getData_bikeUseRatio() {
+                this.$http({
+                    method: 'get',
+                    url: '/bikeStatus/bikeUseRatio'
+                }).then((res) => {
+                    if (res.code === 'SUCCESS') {
+                        this.bikeUseRatio = res.data || 0;
+                    }
+                });
             }
         }
     }

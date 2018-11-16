@@ -21,10 +21,10 @@
                             class="custom-input-style"
                             clearable
                             placeholder="选择企业名称">
-                        <Option value="1">ofo小黄车</Option>
-                        <Option value="2">摩拜单车</Option>
-                        <Option value="3">hello单车</Option>
-                        <Option value="4">99单车</Option>
+                        <Option v-for="item in companyList"
+                                :value="item._id"
+                                :label="item.name"
+                                :key="item._id"></Option>
                     </Select>
                 </FormItem>
                 <FormItem>
@@ -125,7 +125,9 @@
                         '7': '故障'
                     }
                 ],
-                tableLoading: false
+                tableLoading: false,
+
+                companyList: []
             };
         },
         watch: {
@@ -139,6 +141,9 @@
                 }
             }
         },
+        mounted() {
+            this.getCompany();
+        },
         methods: {
             /**
              * 分页控件-切换页面
@@ -146,6 +151,17 @@
              */
             onPageChange(current) {
                 this.searchParams.current = current;
+            },
+
+            getCompany() {
+                this.$http({
+                    method: 'post',
+                    url: '/companyInfo/list'
+                }).then((res) => {
+                    if (res.code === 'SUCCESS') {
+                        this.companyList = res.data.records || [];
+                    }
+                });
             },
             // 获取表格数据
             getData() {

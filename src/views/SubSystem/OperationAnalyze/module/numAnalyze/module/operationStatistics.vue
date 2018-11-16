@@ -3,7 +3,7 @@
         <Modal v-model="modalValue"
                size="small"
                class="custom-modal-style"
-               :width="920"
+               :width="1120"
                footer-hide>
             <p slot="header">
                 <span>.运 营 数 据 统 计</span>
@@ -16,32 +16,32 @@
                            class="custom-input-style"
                            placeholder="请输入关键字查找" />
                 </FormItem>
+                <!--<FormItem>-->
+                    <!--<Select size="small"-->
+                            <!--class="custom-input-style"-->
+                            <!--clearable-->
+                            <!--placeholder="选择区域">-->
+                        <!--<Option value="1">思明区</Option>-->
+                        <!--<Option value="2">湖里区</Option>-->
+                        <!--<Option value="3">同安区</Option>-->
+                        <!--<Option value="4">集美区</Option>-->
+                        <!--<Option value="5">海沧区</Option>-->
+                        <!--<Option value="6">翔安区</Option>-->
+                    <!--</Select>-->
+                <!--</FormItem>-->
+                <!--<FormItem>-->
+                    <!--<Select size="small"-->
+                            <!--class="custom-input-style"-->
+                            <!--clearable-->
+                            <!--placeholder="选择企业名称">-->
+                        <!--<Option value="1">ofo小黄车</Option>-->
+                        <!--<Option value="2">摩拜单车</Option>-->
+                        <!--<Option value="3">hello单车</Option>-->
+                        <!--<Option value="4">99单车</Option>-->
+                    <!--</Select>-->
+                <!--</FormItem>-->
                 <FormItem>
-                    <Select size="small"
-                            class="custom-input-style"
-                            clearable
-                            placeholder="选择区域">
-                        <Option value="1">思明区</Option>
-                        <Option value="2">湖里区</Option>
-                        <Option value="3">同安区</Option>
-                        <Option value="4">集美区</Option>
-                        <Option value="5">海沧区</Option>
-                        <Option value="6">翔安区</Option>
-                    </Select>
-                </FormItem>
-                <FormItem>
-                    <Select size="small"
-                            class="custom-input-style"
-                            clearable
-                            placeholder="选择企业名称">
-                        <Option value="1">ofo小黄车</Option>
-                        <Option value="2">摩拜单车</Option>
-                        <Option value="3">hello单车</Option>
-                        <Option value="4">99单车</Option>
-                    </Select>
-                </FormItem>
-                <FormItem>
-                    <Button type="info" icon="md-cloud-download" size="small">导出</Button>
+                    <Button type="info" :to="toDownUrl" icon="md-cloud-download" size="small" target="_blank">导出</Button>
                 </FormItem>
             </Form>
             <div class="ivx-table-box">
@@ -68,9 +68,15 @@
 
 <script>
     import modalMixin from '../../../../../../lib/mixin/modalMixin';
+    import Config from '../../../../../../config';
     export default {
         name: 'operationStatistics',  // 运 营 数 据 统 计
         mixins: [modalMixin],
+        computed: {
+            toDownUrl() {
+                return  Config[Config.env].origin + Config[Config.env].ajaxUrl + '/statistics/exportExcel';
+            }
+        },
         data() {
             return {
                 searchParams: {
@@ -83,61 +89,39 @@
                 },
                 tableColumns: [
                     { title: '序号', width: 60, type: 'index', },
-                    { title: '时间', width: 120, align: 'center', key: '1' },
-                    { title: '区域', width: 100, align: 'center', key: '2' },
-                    { title: 'ofo', width: 120, align: 'center', key: '3' },
-                    { title: '摩拜单车', width: 120, align: 'center', key: '4' },
-                    { title: 'hello单车', width: 120, align: 'center', key: '5' },
-                    { title: '99单车', width: 120, align: 'center', key: '6' },
-                    { title: '合计', width: 120, align: 'center', key: '7' }
-                ],
-                tableData: [
-                    {
-                        '1': '2018年9月21日',
-                        '2': '思明区',
-                        '3': '784车次,120km',
-                        '4': '784车次,120km',
-                        '5': '784车次,120km',
-                        '6': '784车次,120km',
-                        '7': '784车次,120km'
+                    { title: '时间', width: 120, align: 'center', key: 'record_date' },
+                    { title: 'ofo', width: 180, align: 'center',
+                        render: (h, params) => {
+                            let str = `${params.row.ofobikecount}车次，${params.row.ofobikemileage}km`;
+                            return h('div', str);
+                        }
                     },
-                    {
-                        '1': '2018年9月21日',
-                        '2': '思明区',
-                        '3': '784车次,120km',
-                        '4': '784车次,120km',
-                        '5': '784车次,120km',
-                        '6': '784车次,120km',
-                        '7': '784车次,120km'
+                    { title: '摩拜单车', width: 180, align: 'center',
+                        render: (h, params) => {
+                            let str = `${params.row.mobikecount}车次，${params.row.mobikemileage}km`;
+                            return h('div', str);
+                        }
                     },
-                    {
-                        '1': '2018年9月21日',
-                        '2': '思明区',
-                        '3': '784车次,120km',
-                        '4': '784车次,120km',
-                        '5': '784车次,120km',
-                        '6': '784车次,120km',
-                        '7': '784车次,120km'
+                    { title: 'hello单车', width: 180, align: 'center',
+                        render: (h, params) => {
+                            let str = `${params.row.hellobikecount}车次，${params.row.hellobikemileage}km`;
+                            return h('div', str);
+                        }
                     },
-                    {
-                        '1': '2018年9月21日',
-                        '2': '思明区',
-                        '3': '784车次,120km',
-                        '4': '784车次,120km',
-                        '5': '784车次,120km',
-                        '6': '784车次,120km',
-                        '7': '784车次,120km'
+                    { title: '99单车', width: 180, align: 'center',
+                        render: (h, params) => {
+                            let str = `${params.row['99bikecount']}车次，${params.row['99bikemileage']}km`;
+                            return h('div', str);
+                        }
                     },
-                    {
-                        '1': '2018年9月21日',
-                        '2': '思明区',
-                        '3': '784车次,120km',
-                        '4': '784车次,120km',
-                        '5': '784车次,120km',
-                        '6': '784车次,120km',
-                        '7': '784车次,120km'
+                    { title: '合计', width: 180, align: 'center',
+                        render: (h, params) => {
+                            let str = `${params.row['allbikecount']}车次，${params.row['allmileage']}km`;
+                            return h('div', str);
+                        }
                     },
                 ],
+                tableData: [],
                 tableLoading: false
             };
         },
@@ -152,6 +136,9 @@
                 }
             }
         },
+        mounted() {
+            this.getData();
+        },
         methods: {
             /**
              * 分页控件-切换页面
@@ -165,7 +152,7 @@
                 this.tableLoading = true;
                 this.$http({
                     method: 'post',
-                    url: '/',
+                    url: '/statistics/list',
                     data: JSON.stringify(this.searchParams)
                 }).then((res) => {
                     this.tableLoading = false;

@@ -15,7 +15,7 @@
             return {
                 searchParams: {
                     current: 1,      // 当前第几页
-                    size: 1000,      // 每页几行
+                    size: 2000,      // 每页几行
                     total: 0,     // 总行数
                 },
                 map: null,
@@ -37,7 +37,7 @@
             getData() {
                 this.$http({
                     method: 'post',
-                    url: '/position/list',
+                    url: '/bikeStatus/list',
                     data: JSON.stringify(this.searchParams)
                 }).then((res) => {
                     this.test(res.data.records);
@@ -53,7 +53,7 @@
 
                 list.forEach((val) => {
 
-                    let p = val.latLon.split(',');
+                    let p = val.cur_position.split(',');
                     this.markers.push(new BMap.Marker(new BMap.Point(p[1], p[0])));
                 });
 

@@ -3,7 +3,7 @@
         <Modal v-model="modalValue"
                size="small"
                class="custom-modal-style"
-               :width="800"
+               :width="820"
                footer-hide>
             <p slot="header">
                 <span>.市场投放单车</span>
@@ -30,7 +30,7 @@
                     </Select>
                 </FormItem>
                 <FormItem>
-                    <Button type="info" icon="md-cloud-download" size="small">导出</Button>
+                    <Button type="info" icon="md-cloud-download" :to="toDownUrl" target="_blank" size="small">导出</Button>
                 </FormItem>
             </Form>
             <div class="ivx-table-box">
@@ -57,9 +57,15 @@
 
 <script>
     import modalMixin from '../../../../../../lib/mixin/modalMixin';
+    import Config from '../../../../../../config';
     export default {
         name: 'bicycleList',   // 市场投放单车
         mixins: [modalMixin],
+        computed: {
+            toDownUrl() {
+                return  Config[Config.env].origin + Config[Config.env].ajaxUrl + '/bicycleInfo/exportExcel';
+            }
+        },
         data() {
             return {
                 searchParams: {
@@ -74,12 +80,12 @@
                 tableColumns: [
                     { title: '序号', width: 60, type: 'index', },
                     { title: '企业名称', width: 90, align: 'center', key: 'companyName' },
-                    { title: '车辆编号', width: 100, align: 'center', key: '2' },
-                    { title: '车锁编号', width: 100, align: 'center', key: '3' },
-                    { title: '牌照号码', width: 100, align: 'center', key: '4' },
-                    { title: '合格证编码', width: 100, align: 'center', key: '5' },
-                    { title: '投放日期', width: 120, align: 'center', key: '6' },
-                    { title: '运行状态', width: 90, align: 'center', key: '7' }
+                    { title: '车辆编号', width: 100, align: 'center', key: '' },
+                    { title: '车锁编号', width: 120, align: 'center', key: 'lockId' },
+                    { title: '牌照号码', width: 100, align: 'center', key: '' },
+                    { title: '合格证编码', width: 100, align: 'center', key: '' },
+                    { title: '投放日期', width: 120, align: 'center', key: 'launchDate' },
+                    { title: '运行状态', width: 90, align: 'center', key: 'status' }
                 ],
                 tableData: [
 
