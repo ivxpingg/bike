@@ -73,8 +73,8 @@
                 let data = [];
 
                 list.forEach((v) => {
-                    let p1 = v.pre_position.split(',');
-                    let p2 = v.cur_position.split(',');
+                    let p1 = v.prePosition.split(',');
+                    let p2 = v.curPosition.split(',');
 
                     data.push({
                         geometry: {
