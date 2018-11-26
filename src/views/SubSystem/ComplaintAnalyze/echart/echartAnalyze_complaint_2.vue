@@ -1,16 +1,16 @@
 <template>
     <div class="echartAnalyze_complaint_2-container">
         <div class="echart" ref="echart"></div>
-        <Form class="form" inline>
-            <FormItem>
-                <Select v-model="type"
-                        size="small"
-                        class="custom-input-style">
-                    <Option value="1">按年统计</Option>
-                    <Option value="2">按月统计</Option>
-                </Select>
-            </FormItem>
-        </Form>
+        <!--<Form class="form" inline>-->
+            <!--<FormItem>-->
+                <!--<Select v-model="type"-->
+                        <!--size="small"-->
+                        <!--class="custom-input-style">-->
+                    <!--<Option value="1">按年统计</Option>-->
+                    <!--<Option value="2">按月统计</Option>-->
+                <!--</Select>-->
+            <!--</FormItem>-->
+        <!--</Form>-->
     </div>
 </template>
 

@@ -2,7 +2,7 @@
     <div class="ComplaintAnalyze-container">
         <Row :gutter="10" class="row-panel">
             <i-col span="6">
-                <vSxcBox class="box" title="投诉量占比">
+                <vSxcBox class="box" title="地区占比">
                     <vEchartAnalyze_complaint_0></vEchartAnalyze_complaint_0>
                 </vSxcBox>
                 <vSxcBox class="box" title="投诉类型分析">
