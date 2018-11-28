@@ -80,7 +80,7 @@
                 this.myOption.series[0].data = [];
                 let otherCount = 0;
                 data.forEach(val => {
-                    if (val.AREA === '其它') {
+                    if (val.AREA.trim() === '其它') {
                         otherCount += val.COUNT;
                     }
                     else {

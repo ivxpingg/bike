@@ -3,7 +3,7 @@
         <div class="area-xmd">
             <Tooltip word-wrap
                      placement="top"
-                     content="60万">
+                     content="16.8万">
                 <Icon class="icon-ionic" type="ios-ionic" />
             </Tooltip>
         </div>
@@ -11,7 +11,7 @@
         <div class="area-hc">
             <Tooltip word-wrap
                      placement="top"
-                     content="60万">
+                     content="1.1万">
                 <Icon class="icon-ionic" type="ios-ionic" />
             </Tooltip>
         </div>
@@ -19,7 +19,7 @@
         <div class="area-jm">
             <Tooltip word-wrap
                      placement="top"
-                     content="60万">
+                     content="6.72万">
                 <Icon class="icon-ionic" type="ios-ionic" />
             </Tooltip>
         </div>
@@ -27,7 +27,7 @@
         <div class="area-ta">
             <Tooltip word-wrap
                      placement="top"
-                     content="60万">
+                     content="1.4万">
                 <Icon class="icon-ionic" type="ios-ionic" />
             </Tooltip>
         </div>
@@ -35,7 +35,7 @@
         <div class="area-xa">
             <Tooltip word-wrap
                      placement="top"
-                     content="60万">
+                     content="1.52万">
                 <Icon class="icon-ionic" type="ios-ionic" />
             </Tooltip>
         </div>

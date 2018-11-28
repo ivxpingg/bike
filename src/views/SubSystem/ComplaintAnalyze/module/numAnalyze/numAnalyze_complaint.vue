@@ -18,14 +18,14 @@
         </div>
         <div class="num-panel">
             <div class="title">投诉处理率</div>
-            <div class="value">{{numPanel.disponsedRate}}</div>
+            <div class="value">{{numPanel.disponsedRate}}%</div>
             <div class="angle angle-1"></div>
             <div class="angle angle-2"></div>
             <div class="angle angle-3"></div>
             <div class="angle angle-4"></div>
         </div>
         <div class="num-panel">
-            <div class="title">平 均 处 理 时 间</div>
+            <div class="title">平均处理时间</div>
             <div class="value">{{numPanel.disposedTime}}天</div>
             <div class="angle angle-1"></div>
             <div class="angle angle-2"></div>

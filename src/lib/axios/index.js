@@ -80,7 +80,7 @@ Ajax.interceptors.response.use(function (response) {
             break;
         default:
             iview.LoadingBar.error();
-            iview.Message.error(response.data.msg);
+            // iview.Message.error(response.data.msg);
             break;
     }
     return response.data;

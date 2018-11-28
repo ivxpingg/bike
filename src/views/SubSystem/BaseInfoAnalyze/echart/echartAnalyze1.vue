@@ -25,6 +25,7 @@
                         name:'企业市场份额',
                         type:'pie',
                         center: ['35%', '50%'],
+                        radius: ['0%', '50%'],
                         label: {
                             normal: {
                                 show: false,

@@ -40,7 +40,7 @@
                         // show: false,
                         orient: 'vertical',
                         y: 'center',
-                        right: 15,
+                        left: 15,
                         // data:['ofo小黄车','摩拜单车','hello单车','99单车'],
                         data: [],
                         textStyle: {
@@ -59,7 +59,7 @@
                                 position: 'center'
                             },
                             emphasis: {
-                                show: true,
+                                show: false,
                                 textStyle: {
                                     fontSize: '20',
                                     fontWeight: 'bold'

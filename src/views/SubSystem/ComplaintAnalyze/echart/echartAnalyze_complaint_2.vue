@@ -1,16 +1,16 @@
 <template>
     <div class="echartAnalyze_complaint_2-container">
         <div class="echart" ref="echart"></div>
-        <!--<Form class="form" inline>-->
-            <!--<FormItem>-->
-                <!--<Select v-model="type"-->
-                        <!--size="small"-->
-                        <!--class="custom-input-style">-->
-                    <!--<Option value="1">按年统计</Option>-->
-                    <!--<Option value="2">按月统计</Option>-->
-                <!--</Select>-->
-            <!--</FormItem>-->
-        <!--</Form>-->
+        <Form class="form" inline>
+            <FormItem>
+                <Select v-model="type"
+                        size="small"
+                        class="custom-input-style">
+                    <Option value="year">按年统计</Option>
+                    <Option value="month">按月统计</Option>
+                </Select>
+            </FormItem>
+        </Form>
     </div>
 </template>
 
@@ -23,12 +23,13 @@
         mixins: [echartMixin],
         data() {
             return {
-                type: '2',
+                type: 'month',
                 myOption: {
                     xAxis: [{
                         show: false,
                         boundaryGap: false,
-                        data: ['6月','7月','8月','9月','10月','11月']
+                        // data: ['6月','7月','8月','9月','10月','11月']
+                        data: []
                     }],
                     series: [
                         {
@@ -49,36 +50,53 @@
                                     color: 'rgb(255, 70, 131)'
                                 }])
                             },
-                            data: [3,3,7,11,12,14]
+                            // data: [3,3,7,11,12,14]
+                            data: []
                         }
                     ]
                 }
             };
         },
-
         watch: {
             type(val) {
-                if (val === '1') {
-                    this.myOption.xAxis[0].data = ['2016年', '2017年', '2018年'];
-                    this.myOption.series[0].data = [28,91,76];
-                }
-                else {
-                    this.myOption.xAxis[0].data = ['6月','7月','8月','9月','10月','11月'];
-                    this.myOption.series[0].data = [3,3,7,11,12,14];
-
-                }
-                this.setOption();
+                this.getData();
             }
         },
         mounted() {
             this.initEchart();
-            this.handleOption();
+            this.getData();
+            // this.handleOption();
         },
         methods: {
             handleOption() {
                 // TODO 赋值
                 this.myOption = Merge.recursive(true, this.lineOption, this.myOption);
                 this.setOption();
+            },
+
+            // 获取投诉趋势
+            getData() {
+                this.$http({
+                    methods: 'get',
+                    url: '/violation/trend',
+                    params: {
+                        type: this.type
+                    }
+                }).then(res => {
+                    if (res.code === 'SUCCESS') {
+                        this.setData(res.data || []);
+                    }
+                })
+            },
+
+            setData(data) {
+                this.myOption.xAxis[0].data = [];
+                this.myOption.series[0].data = [];
+                data.forEach(val => {
+                    this.myOption.xAxis[0].data.push(val.DATETIME);
+                    this.myOption.series[0].data.push(val.COUNT);
+                });
+                this.handleOption();
             }
         }
     }

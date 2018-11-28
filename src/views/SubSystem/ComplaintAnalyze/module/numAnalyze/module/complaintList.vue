@@ -16,17 +16,17 @@
                            class="custom-input-style"
                            placeholder="请输入关键字查找" />
                 </FormItem>
-                <FormItem>
-                    <Select size="small"
-                            class="custom-input-style"
-                            clearable
-                            placeholder="选择企业名称">
-                        <Option value="1">ofo小黄车</Option>
-                        <Option value="2">摩拜单车</Option>
-                        <Option value="3">hello单车</Option>
-                        <Option value="4">99单车</Option>
-                    </Select>
-                </FormItem>
+                <!--<FormItem>-->
+                    <!--<Select size="small"-->
+                            <!--class="custom-input-style"-->
+                            <!--clearable-->
+                            <!--placeholder="选择企业名称">-->
+                        <!--<Option value="1">ofo小黄车</Option>-->
+                        <!--<Option value="2">摩拜单车</Option>-->
+                        <!--<Option value="3">hello单车</Option>-->
+                        <!--<Option value="4">99单车</Option>-->
+                    <!--</Select>-->
+                <!--</FormItem>-->
                 <FormItem>
                     <Button type="info" icon="md-cloud-download" size="small">导出</Button>
                 </FormItem>
@@ -55,6 +55,7 @@
 
 <script>
     import modalMixin from '../../../../../../lib/mixin/modalMixin';
+    import MOMENT from 'moment';
     export default {
         name: 'complaintList',  // 投述事件列表
         mixins: [modalMixin],
@@ -63,74 +64,26 @@
                 searchParams: {
                     current: 1,
                     size: 10,
-                    total: 120,
+                    total: 0,
                     condition: {
                         searchKey: ''
                     }
                 },
                 tableColumns: [
                     { title: '序号', width: 60, type: 'index', },
-                    { title: '时间', width: 120, align: 'center', key: '1' },
-                    { title: '区域', width: 120, align: 'center', key: '2' },
-                    { title: '投诉编号', width: 100, align: 'center', key: '3' },
-                    { title: '投诉地点', width: 100, align: 'center', key: '4' },
-                    { title: '投诉电话', width: 110, align: 'center', key: '5' },
-                    { title: '投诉来源', width: 100, align: 'center', key: '6' },
-                    { title: '投诉状态', width: 90, align: 'center', key: '7' }
-                ],
-                tableData: [
-                    {
-                        '1': '2018年9月21日',
-                        '2': '思明区',
-                        '3': 'DT0900',
-                        '4': '金山路',
-                        '5': '18030094647',
-                        '6': 'ofo小黄车',
-                        '7': '待处理'
+                    { title: '时间', width: 120, align: 'center', key: 'CREATEDON',
+                        render:(h, params) => {
+                            return h('div', params.row.CREATEDON ? MOMENT(params.row.CREATEDON).format('YYYY-MM-DD') : '');
+                        }
                     },
-                    {
-                        '1': '2018年9月21日',
-                        '2': '思明区',
-                        '3': 'DT0900',
-                        '4': '金山路',
-                        '5': '18030094647',
-                        '6': 'ofo小黄车',
-                        '7': '待处理'
-                    },
-                    {
-                        '1': '2018年9月21日',
-                        '2': '思明区',
-                        '3': 'DT0900',
-                        '4': '金山路',
-                        '5': '18030094647',
-                        '6': 'ofo小黄车',
-                        '7': '待处理'
-                    },{
-                        '1': '2018年9月21日',
-                        '2': '思明区',
-                        '3': 'DT0900',
-                        '4': '金山路',
-                        '5': '18030094647',
-                        '6': 'ofo小黄车',
-                        '7': '待处理'
-                    },{
-                        '1': '2018年9月21日',
-                        '2': '思明区',
-                        '3': 'DT0900',
-                        '4': '金山路',
-                        '5': '18030094647',
-                        '6': 'ofo小黄车',
-                        '7': '待处理'
-                    },{
-                        '1': '2018年9月21日',
-                        '2': '思明区',
-                        '3': 'DT0900',
-                        '4': '金山路',
-                        '5': '18030094647',
-                        '6': 'ofo小黄车',
-                        '7': '待处理'
-                    }
+                    { title: '区域', minWidth: 120, align: 'center', key: 'AREANAME' },
+                    // { title: '投诉编号', width: 100, align: 'center', key: 'PETITIONID' },
+                    { title: '投诉地点', width: 100, align: 'center', key: 'EVENTADDRESS' },
+                    { title: '投诉电话', width: 110, align: 'center', key: 'TEL' },
+                    { title: '投诉来源', width: 100, align: 'center', key: 'SOURCEWAYPATH' },
+                    { title: '投诉状态', width: 90, align: 'center', key: 'STATUS' }
                 ],
+                tableData: [],
                 tableLoading: false
             };
         },
@@ -145,6 +98,9 @@
                 }
             }
         },
+        mounted() {
+            this.getData();
+        },
         methods: {
             /**
              * 分页控件-切换页面
@@ -158,7 +114,7 @@
                 this.tableLoading = true;
                 this.$http({
                     method: 'post',
-                    url: '/',
+                    url: '/violation/list',
                     data: JSON.stringify(this.searchParams)
                 }).then((res) => {
                     this.tableLoading = false;

@@ -1,14 +1,19 @@
 <template>
     <div class="PassengerAnalyze-container" style="padding-top: 0px;">
-        <vPassengerMap></vPassengerMap>
+        <!--<vPassengerMap></vPassengerMap>-->
+        <vEchartMap></vEchartMap>
     </div>
 </template>
 
 <script>
-    import vPassengerMap from './map/passengerMap';
+    // import vPassengerMap from './map/passengerMap';
+    import vEchartMap from './map/echartMap';
     export default {
         name: 'PassengerAnalyze',  // 客流特征分析
-        components: {vPassengerMap},
+        components: {
+           // vPassengerMap,
+            vEchartMap
+        },
         data() {
             return {};
         }

@@ -1,7 +1,7 @@
 <template>
     <div class="map-container">
         <div class="map" id="baidu_map"></div>
-        <vBInfo class="vBInfo"></vBInfo>
+        <!--<vBInfo class="vBInfo"></vBInfo>-->
     </div>
 </template>
 

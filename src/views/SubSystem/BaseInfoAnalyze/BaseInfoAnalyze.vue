@@ -59,7 +59,7 @@
 <style lang="scss" scoped>
     .BaseInfoAnalyze-container {
         height: 600px;
-        padding: 20px 70px;
+        padding: 20px 50px;
 
         .vNumAnalyze {
             margin-top: 20px;
