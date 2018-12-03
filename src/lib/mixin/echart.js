@@ -81,11 +81,22 @@ export default {
         };
     },
     methods: {
-        initEchart() {
-            this.chart = Echarts.init(this.$refs.echart);
+        initEchart(chart, ref) {
+            if (ref) {
+                this[chart] = Echarts.init(this.$refs[ref]);
+            }
+            else {
+                this.chart = Echarts.init(this.$refs.echart);
+            }
         },
-        setOption() {
-            this.chart.setOption(this.myOption);
+        setOption(chart, myOption) {
+            if (chart) {
+                this[chart].setOption(myOption);
+            }
+            else {
+                this.chart.setOption(this.myOption);
+            }
+
         },
         createRandomItemStyle(idx) {
 

@@ -51,6 +51,9 @@
             return {
 
             };
+        },
+        methods: {
+
         }
     }
 </script>

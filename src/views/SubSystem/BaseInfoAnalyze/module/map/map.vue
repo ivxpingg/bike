@@ -8,6 +8,7 @@
 <script>
     import initBMap from './initBMap';
     import vBInfo from './bInfo';
+    import img_ofo from './images/ofo.png';
     export default {
         name: 'baiduMap',
         components: {vBInfo},
@@ -15,7 +16,7 @@
             return {
                 searchParams: {
                     current: 1,      // 当前第几页
-                    size: 2000,      // 每页几行
+                    size: 100,      // 每页几行
                     total: 0,     // 总行数
                 },
                 map: null,
@@ -40,7 +41,8 @@
                     url: '/bikeStatus/list',
                     data: JSON.stringify(this.searchParams)
                 }).then((res) => {
-                    this.test(res.data.records);
+                    // this.test(res.data.records);
+                    this.test2(res.data.records);
                 })
             },
             test(list) {
@@ -63,6 +65,22 @@
                     maxZoom: 18,
                     isAverageCenter: true,
                     // minClusterSize: 5
+                });
+
+            },
+
+            // 分车企
+            test2(list) {
+                list.forEach((val) => {
+                    let p = val.cur_position.split(',');
+
+                    //创建小狐狸
+                    var pt = new BMap.Point(p[1], p[0]);
+                    var myIcon = new BMap.Icon(img_ofo, new BMap.Size(16,16));
+                    myIcon.setImageSize(new BMap.Size(16,16));
+                    var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
+                    this.map.addOverlay(marker2);
+
                 });
             }
         }
