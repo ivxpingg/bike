@@ -37,6 +37,12 @@
             return {
                 echart_bar: null,
                 myOption_bar: {
+                    legend: {
+                        data: ['进入', '离开'],
+                        textStyle: {
+                            color: '#FFF'
+                        }
+                    },
                     grid: {
                         bottom: 60
                     },
@@ -46,7 +52,7 @@
                         type: 'slider'
                     }],
                     xAxis: [{
-                        show: false,
+                        show: true,
                         type: 'category',
                         data: ['01时', '02时', '03时', '04时', '05时', '06时', '07时', '08时', '09时', '10时','11时', '12时', '13时', '14时', '15时', '16时', '17时', '18时', '19时', '20时','21时', '22时', '23时', '24时']
                     }],
@@ -58,7 +64,7 @@
                             large: true
                         },
                         {
-                            name: '出去',
+                            name: '离开',
                             type: 'bar',
                             data: [32,32,12,23,12,23,21,12,23,32,43,23,54,34,64,35,46,57,35,46,23,46,23,35],
                             large: true
@@ -67,7 +73,46 @@
                 },
 
                 echart_pie: null,
-                myOption_pie: {}
+                myOption_pie: {
+                    tooltip: {
+                        trigger: 'item',
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        y: 'center',
+                        right: 15,
+                        data:['ofo小黄车','摩拜单车','hello单车','99单车'],
+                        textStyle: {
+                            color: '#FFF'
+                        }
+                    },
+                    series: [{
+                        name:'前5名排名',
+                        type:'pie',
+                        center: ['35%', '50%'],
+                        radius: ['0%', '50%'],
+                        label: {
+                            normal: {
+                                show: false,
+                                position: 'center'
+                            },
+                            emphasis: {
+                                show: false
+                            }
+                        },
+                        labelLine: {
+                            normal: {
+                                show: false
+                            }
+                        },
+                        data:[
+                            {value:70848, name:'ofo小黄车'},
+                            {value:102603, name:'摩拜单车'},
+                            {value:55982, name:'hello单车'},
+                            {value:32549, name:'99单车'}
+                        ]
+                    }]
+                }
 
 
             };
@@ -80,7 +125,6 @@
         },
         methods: {
             handleOption() {
-                // TODO 赋值
                 this.myOption_bar = Merge.recursive(true, this.barOption, this.myOption_bar);
                 this.setOption('echart_bar', this.myOption_bar);
 
@@ -107,10 +151,16 @@
 <style lang="scss" scoped>
     .ODAnalyze-container {
         position: relative;
+        padding-top: 40px;
 
+        .filter-from {
+            position: absolute;
+            top: 0;
+            left: 10px;
+        }
 
         .echart {
-            height: 380px;
+            height: 330px;
         }
     }
 </style>

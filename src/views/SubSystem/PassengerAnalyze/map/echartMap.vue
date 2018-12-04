@@ -39,7 +39,7 @@
                     textData.push({
                         geometry: {
                             type: 'Point',
-                            coordinates: val.from
+                            coordinates: val.position
                         },
                         text: val.name
                     });
@@ -48,7 +48,7 @@
                         {
                             geometry: {
                                 type: 'Point',
-                                coordinates: val.from
+                                coordinates: val.position
                             },
                             name: val.name
                         }
@@ -105,7 +105,7 @@
                 data.forEach(val => {
                     if (val.name === name) {
                         val.to.forEach(v => {
-                            let curve = mapv.utilCurve.getPoints([{lng: val.from[0], lat: val.from[1]}, {lng: v.lngLot[0], lat: v.lngLot[1]}]);
+                            let curve = mapv.utilCurve.getPoints([{lng: val.position[0], lat: val.position[1]}, {lng: v.lngLot[0], lat: v.lngLot[1]}]);
 
                             for (let j = 0; j < curve.length; j++) {
                                 timeData.push({

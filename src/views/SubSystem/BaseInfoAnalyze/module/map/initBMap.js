@@ -1,6 +1,6 @@
 
 let setMap = (domId) => {
-    let map = new BMap.Map(domId, {enableMapClick:false, minZoom:8,maxZoom:18});    // 创建Map实例,关闭底图可点功能
+    let map = new BMap.Map(domId, {enableMapClick:false, minZoom:8,maxZoom:22});    // 创建Map实例,关闭底图可点功能
     map.centerAndZoom(new BMap.Point(118.133285,24.516861), 15);  // 初始化地图,设置中心点坐标和地图级别
     map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
 

@@ -49,8 +49,6 @@
         },
         methods: {
             handleOption() {
-                // TODO 赋值
-
                 this.myOption = Merge.recursive(true, this.barOption, this.myOption);
                 this.setOption();
             }

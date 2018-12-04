@@ -10,30 +10,15 @@
                         <div class="item-text">{{item.company}}使用率:<span>{{item.ratio}}</span></div>
                         <div></div>
                     </div>
-                    <!--<div class="item">-->
-                        <!--<div class="item-bike">-->
-                            <!--<vCommonIcon type="_zihangche" :size="50"></vCommonIcon>-->
-                        <!--</div>-->
-                        <!--<div class="item-text">单车使用率 <span>80%</span></div>-->
-                        <!--<div></div>-->
-                    <!--</div>-->
-
-                    <!--<div class="item">-->
-                        <!--<div class="item-bike">-->
-                            <!--<vCommonIcon type="_zihangche" :size="50"></vCommonIcon>-->
-                        <!--</div>-->
-                        <!--<div class="item-text">单车使用率 <span>80%</span></div>-->
-                        <!--<div></div>-->
-                    <!--</div>-->
-
                 </div>
             </div>
+
             <div class="swiper-slide">
                 <div class="slide-panel2">
                     <div class="item" v-for="(item, idx) in dataList" :key="idx">
                         <div class="title">{{item.company}}</div>
                         <div class="progress">
-                            <Tooltip :content="getMileage(item.mileage)" style="width: 100%">
+                            <Tooltip :content="getMileage(item.mileage || 0)" style="width: 100%">
                                 <Progress :percent="100" :success-percent="25" hide-info />
                             </Tooltip>
                         </div>
@@ -68,7 +53,7 @@
         methods: {
             initSwiper() {
                 this.mySwiper = new Swiper (this.$refs.swiper, {
-                    loop: true, // 循环模式选项
+                    // loop: true, // 循环模式选项
 
                     // 如果需要分页器
                     pagination: {
