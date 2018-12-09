@@ -47,6 +47,7 @@
         mounted() {
             this.initEchart();
             this.handleOption();
+            this.getData();
         },
         methods: {
             handleOption() {
@@ -56,15 +57,27 @@
             getData() {
                 this.$http({
                     method: 'get',
-                    url: '',
+                    url: '/bikeOut/peak',
                     params: {
-
+                        type: 'latePeak'
                     }
                 }).then(res => {
                     if (res.code === 'SUCCESS') {
+                        this.resetOptons(res.data);
 
                     }
                 })
+            },
+            resetOptons(data) {
+                this.myOption.yAxis.data = [];
+                this.myOption.series[0].data = [];
+                this.myOption.series[1].data = [];
+                data.reverse().forEach(val => {
+                    this.myOption.yAxis.data.push(val.areaName);
+                    this.myOption.series[0].data.push(val.inCount);
+                    this.myOption.series[1].data.push(val.outCount);
+                });
+                this.handleOption();
             }
         }
     }
