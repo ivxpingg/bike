@@ -13,7 +13,7 @@
             return {
                 myOption: {
                     grid:{
-                      left: 60
+                      left: 80
                     },
                     xAxis:  {
                         type: 'value',
@@ -26,18 +26,31 @@
                         type: 'category',
                         data: ['古地石社','观音山','蔡塘','明发园','蔡塘BRT','软件园'],
                         axisLabel: {
-                            color: '#FFF'
+                            color: '#FFF',
+                            formatter: '{value}'
                         }
                     },
                     series: [
                         {
                             name: '进入',
                             type: 'bar',
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'inside'
+                                }
+                            },
                             data: [3,42,12,19,23,214]
                         },
                         {
                             name: '离开',
                             type: 'bar',
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'inside'
+                                }
+                            },
                             data: [19,0,32,41,53,36]
                         }
                     ]

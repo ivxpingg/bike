@@ -7,8 +7,8 @@
             <div style="width: 300px;">
                 <Slider v-model="slider.value"
                         range
-                        :min="0"
-                        :max="23"
+                        :min="1"
+                        :max="24"
                         :tip-format="slider.format"
                         @on-change="onChange_slider"></Slider>
             </div>
@@ -56,13 +56,13 @@
                 searchParams: {
                     areaCode: '',
                     startTime: MOMENT().subtract(1, 'days').format('YYYY-MM-DD') + ' 00:00:00',
-                    endTime: MOMENT().subtract(1, 'days').format('YYYY-MM-DD') + ' 23:00:00',
+                    endTime: MOMENT().subtract(1, 'days').format('YYYY-MM-DD') + ' 23:59:59',
                     type: 'out'  // 获取热点区域单车进入或者出去   'out' || 'in'
                 },
 
                 // 时间阀值
                 slider:{
-                    value: [0, 23],
+                    value: [1, 24],
                     format(val) {
                         return val + '时';
                     }
@@ -89,11 +89,11 @@
         },
         methods: {
             onChange_slider(value) {
-                let s_hour = value[0] > 9 ? '' + value[0] : '0' + value[0];
-                let e_hour = value[1] > 9 ? '' + value[1] : '0' + value[1];
+                let s_hour = (value[0]-1) > 9 ? '' + value[0] : '0' + (value[0]-1);
+                let e_hour = (value[1]-1) > 9 ? '' + value[1] : '0' + (value[1]-1);
 
                 this.searchParams.startTime = MOMENT().subtract(1, 'days').format('YYYY-MM-DD') + ' ' + s_hour + ':00:00';
-                this.searchParams.endTime = MOMENT().subtract(1, 'days').format('YYYY-MM-DD') + ' ' + e_hour + ':00:00';
+                this.searchParams.endTime = MOMENT().subtract(1, 'days').format('YYYY-MM-DD') + ' ' + e_hour + ':59:59';
             },
 
             //获取热点区域列表
@@ -406,166 +406,6 @@
                         },
                         trails: 10,
                         duration: 3,
-                    },
-                    draw: 'simple'
-                };
-                this.timeMapvLayer = new mapv.baiduMapLayer(this.map, timeDataSet, timeOptions);
-
-
-                let countDataSet = new mapv.DataSet(countData);
-                let textOptions = {
-                    offset: {
-                        x: 0,
-                        y: -20
-                    },
-                    draw: 'text',
-                    font: '16px Arial',
-                    fillStyle: 'white',
-                    shadowColor: 'white',
-                    shadowBlue: 10,
-                    zIndex: 102,
-                    shadowBlur: 10
-                };
-
-                this.countLayer = new mapv.baiduMapLayer(this.map, countDataSet, textOptions);
-            },
-
-            setName() {
-                let that = this;
-
-                let textData = [];
-                let pointData = [];
-                data.forEach(val => {
-                    textData.push({
-                        geometry: {
-                            type: 'Point',
-                            coordinates: val.position
-                        },
-                        text: val.name
-                    });
-
-                    pointData.push(
-                        {
-                            geometry: {
-                                type: 'Point',
-                                coordinates: val.position
-                            },
-                            name: val.name
-                        }
-                    );
-                });
-
-                let textDataSet = new mapv.DataSet(textData);
-                let textOptions = {
-                    draw: 'text',
-                    font: '12px Arial',
-                    fillStyle: 'white',
-                    shadowColor: 'yellow',
-                    shadowBlue: 10,
-                    zIndex: 11,
-                    shadowBlur: 10
-                };
-                this.textMapvLayer = new mapv.baiduMapLayer(this.map, textDataSet, textOptions);
-
-                let pointDataSet = new mapv.DataSet(pointData);
-                let pointOptions = {
-                    fillStyle: 'rgba(36,254,65,0.5)',
-                    shadowColor: 'rgba(55, 50, 250, 0.5)',
-                    shadowBlur: 10,
-                    cursor: 'pointer',
-                    size: 25,
-                    zIndex: 10,
-                    draw: 'simple',
-                    methods: {
-                        click: function (item) { // 点击事件，返回对应点击元素的对象值
-
-                            that.setLine(item.name);
-                        }
-                    }
-                }
-
-                this.pointLayer = new mapv.baiduMapLayer(this.map, pointDataSet, pointOptions);
-            },
-
-            setLine(name) {
-                if (this.lineLayer) {
-                    this.lineLayer.destroy();
-                }
-                if (this.timeMapvLayer) {
-                    this.timeMapvLayer.destroy();
-                }
-                if (this.countLayer) {
-                    this.countLayer.destroy();
-                }
-
-                let lineData = [];
-                let timeData = [];
-                let countData = [];
-
-                data.forEach(val => {
-                    if (val.name === name) {
-                        val.to.forEach(v => {
-                            let curve = mapv.utilCurve.getPoints([{lng: val.position[0], lat: val.position[1]}, {lng: v.lngLot[0], lat: v.lngLot[1]}]);
-
-                            for (let j = 0; j < curve.length; j++) {
-                                timeData.push({
-                                    geometry: {
-                                        type: 'Point',
-                                        coordinates: curve[j]
-                                    },
-                                    count: 1,
-                                    time: j
-                                });
-                            }
-
-                            lineData.push({
-                                geometry: {
-                                    type: 'LineString',
-                                    coordinates: curve
-                                    //coordinates: [[fromCenter.lng, fromCenter.lat], [toCenter.lng, toCenter.lat]]
-                                },
-                                count: v.count
-                            });
-
-                            countData.push({
-                                geometry: {
-                                    type: 'Point',
-                                    coordinates: v.lngLot
-                                },
-                                text: v.count
-                            })
-
-                        });
-                    }
-
-                });
-
-                let lineDataSet = new mapv.DataSet(lineData);
-
-                let lineOptions = {
-                    strokeStyle: 'rgba(253,252,71, 1)',
-                    shadowColor: 'rgba(253,252,71, 1)',
-                    shadowBlur: 20,
-                    lineWidth: 2,
-                    zIndex: 100,
-                    draw: 'simple'
-                };
-
-                this.lineLayer = new mapv.baiduMapLayer(this.map, lineDataSet, lineOptions);
-
-                let timeDataSet = new mapv.DataSet(timeData);
-                let timeOptions = {
-                    fillStyle: 'rgba(255, 250, 250, 0.5)',
-                    zIndex: 101,
-                    size: 2.5,
-                    animation: {
-                        type: 'time',
-                        stepsRange: {
-                            start: 0,
-                            end: 50
-                        },
-                        trails: 10,
-                        duration: 2,
                     },
                     draw: 'simple'
                 };

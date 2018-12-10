@@ -4,7 +4,7 @@
             <Form inline>
                 <FormItem>
                     <Select placeholder="选择区域"
-                            v-model="searchParams.id"
+                            v-model="searchParams.areaCode"
                             class="custom-input-style"
                             size="small">
                         <Option v-for="item in areaList"
@@ -45,7 +45,7 @@
             return {
                 areaList: [],
                 searchParams: {
-                    id:'',
+                    areaCode:'',
                     time: ''
                 },
 
@@ -68,19 +68,22 @@
                     xAxis: [{
                         show: true,
                         type: 'category',
+                        axisLabel: {
+                            color: '#FFF'
+                        },
                         data: ['01时', '02时', '03时', '04时', '05时', '06时', '07时', '08时', '09时', '10时','11时', '12时', '13时', '14时', '15时', '16时', '17时', '18时', '19时', '20时','21时', '22时', '23时', '24时']
                     }],
                     series: [
                         {
                             name: '进入',
                             type: 'bar',
-                            data: [12, 32,32,12,23,12,23,21,12,23,32,43,23,54,34,64,35,46,57,35,46,23,46,23],
+                            data: [],
                             large: true
                         },
                         {
                             name: '离开',
                             type: 'bar',
-                            data: [32,32,12,23,12,23,21,12,23,32,43,23,54,34,64,35,46,57,35,46,23,46,23,35],
+                            data: [],
                             large: true
                         }
                     ]
@@ -107,8 +110,9 @@
                         radius: ['0%', '50%'],
                         label: {
                             normal: {
-                                show: false,
-                                position: 'center'
+                                show: true,
+                                formatter: '{c}',
+                                position: 'inside'
                             },
                             emphasis: {
                                 show: false
@@ -116,7 +120,7 @@
                         },
                         labelLine: {
                             normal: {
-                                show: false
+                                show: true
                             }
                         },
                         data:[
@@ -147,6 +151,8 @@
 
             this.handleOption();
             this.getAreaData();
+
+            this.getData_pie();
         },
         methods: {
             onChange_time(value) {
@@ -168,7 +174,7 @@
                     if (res.code === 'SUCCESS') {
                         this.areaList = res.data || [];
                         if (res.data.length > 0) {
-                            this.searchParams.id = res.data[0].id;
+                            this.searchParams.areaCode = res.data[0].id;
                         }
                     }
                 })
@@ -195,6 +201,30 @@
                     this.myOption_bar.series[1].data.push(val.outCount);
                 });
                 this.handleOption();
+            },
+
+            getData_pie() {
+                this.$http({
+                    method: 'get',
+                    url: '/bikeOut/rank'
+                }).then(res => {
+                    if (res.code === 'SUCCESS') {
+                        this.resetOption_pie(res.data);
+                    }
+                })
+            },
+            resetOption_pie(data) {
+                this.myOption_pie.legend.data = [];
+                this.myOption_pie.series[0].data = [];
+
+                data.forEach(val => {
+                    this.myOption_pie.legend.data.push(val.areaName);
+                    this.myOption_pie.series[0].data.push({
+                        value: val.count,
+                        name: val.areaName
+                    });
+                });
+                this.handleOption();
             }
         }
     }
@@ -212,7 +242,7 @@
         }
 
         .echart {
-            height: 330px;
+            height: 300px;
         }
     }
 </style>

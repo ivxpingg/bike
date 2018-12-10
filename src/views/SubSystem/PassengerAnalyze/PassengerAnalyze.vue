@@ -10,11 +10,11 @@
         </div>
 
         <div class="right-panel">
-            <vSxcBox title="早高峰客流排行" style="height: 320px;">
+            <vSxcBox title="早高峰客流排行" style="height: 340px;">
                 <vMorningRank></vMorningRank>
             </vSxcBox>
 
-            <vSxcBox title="晚高峰客流排行" style="height: 320px;">
+            <vSxcBox title="晚高峰客流排行" style="height: 340px;">
                 <vNightRank></vNightRank>
             </vSxcBox>
         </div>

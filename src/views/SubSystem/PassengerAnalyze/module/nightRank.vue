@@ -13,7 +13,7 @@
             return {
                 myOption: {
                     grid:{
-                        left: 60
+                        left: 80
                     },
                     xAxis:  {
                         type: 'value',
@@ -33,11 +33,23 @@
                         {
                             name: '进入',
                             type: 'bar',
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'inside'
+                                }
+                            },
                             data: [23,17,65,63,78,12]
                         },
                         {
                             name: '离开',
                             type: 'bar',
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'inside'
+                                }
+                            },
                             data: [6,67,28,34,65,187]
                         }
                     ]
