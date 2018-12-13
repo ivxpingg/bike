@@ -1,5 +1,12 @@
 <template>
     <div class="echartAnalyze2-container" ref="echart">
+        <div class="ivx-table-box">
+            <Table class="custom-table-style"
+                   size="small"
+                   :height="260"
+                   :columns="tableColumns"
+                   :data="tableData"></Table>
+        </div>
     </div>
 </template>
 
@@ -47,12 +54,22 @@
                             data: [3060,3091,3122,3153,3185,3211]
                         }
                     ]
-                }
+                },
+
+                tableColumns: [
+                    { title: '序号', width: 60, type: 'index', },
+                    { title: '区域', width: 90, align: 'center', key: 'area' },
+                    { title: '企业名称', width: 90, align: 'center', key: 'companyName' },
+                    { title: '数量', minWidth: 90, align: 'center', key: 'count' },
+                ],
+                tableData: []
+
             };
         },
         mounted() {
-            this.initEchart();
-            this.handleOption();
+            // this.initEchart();
+            // this.handleOption();
+            this.getData();
         },
         methods: {
             handleOption() {
@@ -60,6 +77,27 @@
 
                 this.myOption = Merge.recursive(true, this.lineOption, this.myOption);
                 this.setOption();
+            },
+            getData() {
+                this.$http({
+                    method: 'get',
+                    url: '/orbit/getArea'
+                }).then((res) => {
+                    this.resetData(res.data || []);
+                })
+            },
+            resetData(data) {
+                let list = [];
+
+                data.forEach(val => {
+                    val.detail.forEach(detail => {
+                        detail.area = val.area;
+
+                        list.push(detail);
+                    });
+                });
+
+                this.tableData = list;
             }
         }
     }
@@ -68,5 +106,11 @@
 <style lang="scss" scoped>
     .echartAnalyze2-container {
         height: 100%;
+        overflow: hidden;
+
+        .ivx-table-box {
+            padding: 0;
+            width: calc(100% + 17px);
+        }
     }
 </style>

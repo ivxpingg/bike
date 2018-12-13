@@ -2,7 +2,7 @@
     <div class="BaseInfoAnalyze-container">
         <Row :gutter="10" class="row-panel">
             <i-col span="6">
-                <vSxcBox class="box" title="单车投放趋势">
+                <vSxcBox class="box" title="单车状态">
                     <vEchartAnalyze0></vEchartAnalyze0>
                 </vSxcBox>
                 <vSxcBox class="box" title="企业市场份额">

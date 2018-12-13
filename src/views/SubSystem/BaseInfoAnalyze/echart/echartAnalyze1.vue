@@ -41,10 +41,10 @@
                             }
                         },
                         data:[
-                            {value:70848, name:'ofo小黄车'},
-                            {value:102603, name:'摩拜单车'},
-                            {value:55982, name:'hello单车'},
-                            {value:32549, name:'99单车'}
+                            // {value:70848, name:'ofo小黄车'},
+                            // {value:102603, name:'摩拜单车'},
+                            // {value:55982, name:'hello单车'},
+                            // {value:32549, name:'99单车'}
                         ]
                     }]
                 }
@@ -53,6 +53,7 @@
         mounted() {
             this.initEchart();
             this.handleOption();
+            this.getBikeCount();
         },
         methods: {
             handleOption() {
@@ -60,6 +61,32 @@
                 this.myOption = Merge.recursive(true, this.pieOption, this.myOption);
 
                 this.setOption();
+            },
+            getBikeCount() {
+                this.$http({
+                    method: 'post',
+                    url: '/bicycleInfo/companyPercent'
+                }).then((res) => {
+
+                    if (res.code === 'SUCCESS') {
+                        // this.bikeCountList = res.data || [];
+                        this.resetOption(res.data || []);
+                    }
+                });
+            },
+            resetOption(data) {
+                this.myOption.legend.data = [];
+                this.myOption.series[0].data = [];
+
+                data.forEach(val => {
+                    this.myOption.legend.data.push(val.name);
+                    this.myOption.series[0].data.push({
+                        value: val.bicycleCount,
+                        name: val.name
+                    });
+                });
+
+                this.handleOption();
             }
         }
     }

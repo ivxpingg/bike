@@ -130,7 +130,7 @@
                     switch (v.name) {
                         case 'ofo单车':
                             for (let i = 0; i < val.length; i++) {
-                                if (v._id === val[i]._id) {
+                                if (v.id === val[i].id) {
                                     this.baseInfo.ofobike.bikeCount = val[i].bicycleCount;
                                     break;
                                 }
@@ -138,7 +138,7 @@
                             break;
                         case '摩拜单车':
                             for (let i = 0; i < val.length; i++) {
-                                if (v._id === val[i]._id) {
+                                if (v.id === val[i].id) {
                                     this.baseInfo.mobike.bikeCount = val[i].bicycleCount;
                                     break;
                                 }
@@ -146,7 +146,7 @@
                             break;
                         case 'hello单车':
                             for (let i = 0; i < val.length; i++) {
-                                if (v._id === val[i]._id) {
+                                if (v.id === val[i].id) {
                                     this.baseInfo.hellobike.bikeCount = val[i].bicycleCount;
                                     break;
                                 }
@@ -154,7 +154,7 @@
                             break;
                         case '99单车':
                             for (let i = 0; i < val.length; i++) {
-                                if (v._id === val[i]._id) {
+                                if (v.id === val[i].id) {
                                     this.baseInfo.nnbike.bikeCount = val[i].bicycleCount;
                                     break;
                                 }
@@ -168,7 +168,7 @@
                     switch (v.name) {
                         case 'ofo单车':
                             for (let i = 0; i < val.length; i++) {
-                                if (v._id === val[i]._id) {
+                                if (v.id === val[i].id) {
                                     this.baseInfo.ofobike.userCount = val[i].peopleCount;
                                     break;
                                 }
@@ -176,7 +176,7 @@
                             break;
                         case '摩拜单车':
                             for (let i = 0; i < val.length; i++) {
-                                if (v._id === val[i]._id) {
+                                if (v.id === val[i].id) {
                                     this.baseInfo.mobike.userCount = val[i].peopleCount;
                                     break;
                                 }
@@ -184,7 +184,7 @@
                             break;
                         case 'hello单车':
                             for (let i = 0; i < val.length; i++) {
-                                if (v._id === val[i]._id) {
+                                if (v.id === val[i].id) {
                                     this.baseInfo.hellobike.userCount = val[i].peopleCount;
                                     break;
                                 }
@@ -192,7 +192,7 @@
                             break;
                         case '99单车':
                             for (let i = 0; i < val.length; i++) {
-                                if (v._id === val[i]._id) {
+                                if (v.id === val[i].id) {
                                     this.baseInfo.nnbike.userCount = val[i].peopleCount;
                                     break;
                                 }

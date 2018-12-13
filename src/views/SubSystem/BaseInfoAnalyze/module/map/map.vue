@@ -1,7 +1,7 @@
 <template>
     <div class="map-container">
         <div class="map" id="baidu_map"></div>
-        <!--<vBInfo class="vBInfo"></vBInfo>-->
+        <vBInfo class="vBInfo"></vBInfo>
 
         <div>
 
@@ -53,12 +53,6 @@
             initBMap('baidu_map').then((m) => {
                 this.map = m;
                 this.getData();
-                //
-                // this.searchParams2.longitude = this.map.getCenter().lng;
-                // this.searchParams2.latitude = this.map.getCenter().lat;
-                // this.setMapEvent();
-                //
-                // this.getData2();
 
             });
         },
@@ -79,10 +73,10 @@
                     let pt = new BMap.Point(p[1], p[0]);
                     let myIcon;
                     switch (val.companyName) {
-                        case 'ofo单车': myIcon = new BMap.Icon(img_ofo, new BMap.Size(16,16)); break;
-                        case 'hello单车': myIcon = new BMap.Icon(img_hellobike, new BMap.Size(16,16)); break;
-                        case '摩拜单车': myIcon = new BMap.Icon(img_mobai, new BMap.Size(16,16)); break;
-                        case '99单车': myIcon = new BMap.Icon(img_nine, new BMap.Size(16,16)); break;
+                        case 'ofo单车': myIcon = new BMap.Icon('./ofo.png', new BMap.Size(16,16)); break;
+                        case 'hello单车': myIcon = new BMap.Icon('./hellobike.png', new BMap.Size(16,16)); break;
+                        case '摩拜单车': myIcon = new BMap.Icon('./mobai.png', new BMap.Size(16,16)); break;
+                        case '99单车': myIcon = new BMap.Icon('./nine.png', new BMap.Size(16,16)); break;
                     }
 
                     myIcon.setImageSize(new BMap.Size(16,16));
