@@ -6,7 +6,7 @@
 
         <Modal v-model="modal_hotArea"
                class="custom-modal-style"
-               :width="860"
+               :width="900"
                footer-hide>
             <p slot="header">
                 <span>.热点区域</span>
@@ -74,6 +74,7 @@
 
 <script>
     import initBMap from './initBMap';
+    import MOMENT from 'moment';
     export default {
         name: 'spotMap',
         data() {
@@ -91,7 +92,11 @@
 
                 tableColumns: [
                     { title: '序号', width: 60, type: 'index', },
-                    { title: '时间', width: 120, align: 'center', key: 'recordTime' },
+                    { title: '时间', width: 160, align: 'center', key: 'recordTime',
+                        render: (h, params) => {
+                            return h ('span', MOMENT(params.row.recordTime).format('YYYY-MM-DD HH:mm'));
+                        }
+                    },
                     { title: '分析半径(米)', width: 120, align: 'center', key: 'radius' },
                     { title: '车辆数(辆)', width: 120, align: 'center', key: 'minpts' },
                     { title: '分析结果(个)', width: 120, align: 'center', key: 'totalNum' },
@@ -125,6 +130,9 @@
                                     },
                                     on: {
                                         click() {
+                                            if (!this.map) {
+                                                this.$Message.info('地图初始化中,请稍后...');
+                                            }
                                             this.getData_for_map(params.rows.id);
                                             this.modal_hotArea = false;
                                         }
@@ -203,6 +211,8 @@
                 this.map = m;
                 // this.getData();
             });
+
+            this.getTableData();
         },
         methods: {
             /**
@@ -309,8 +319,8 @@
             getTableData() {
                 this.$http({
                     method: 'post',
-                    url: '/hotArea/list',
-                    data: JSON.stringify(this.formData)
+                    url: '/hotAreaStatus/list',
+                    data: JSON.stringify(this.searchParams)
                 }).then((res) => {
                     if (res.code === 'SUCCESS') {
                         this.tableData = res.data.records;
@@ -325,7 +335,7 @@
                         this.$Spin.show();
                         this.$http({
                             method: 'post',
-                            url: '/',
+                            url: '/orbit/getHotArea',
                             data: JSON.stringify(this.formData)
                         }).then((res) => {
                             this.$Spin.hide();
@@ -347,7 +357,7 @@
             getData_for_map(id) {
                 this.$http({
                     method: 'get',
-                    url: '/hotArea/getOne',
+                    url: '/hotArea/list',
                     params: {
                         id: id
                     }

@@ -1,5 +1,5 @@
-const PROJECT_NAME = '/sharebike';
-// const PROJECT_NAME = '';
+// const PROJECT_NAME = '/sharebike';
+const PROJECT_NAME = '';
 
 export default {
     env: process.env.NODE_ENV,
