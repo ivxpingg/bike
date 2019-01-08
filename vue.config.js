@@ -91,23 +91,23 @@ module.exports = {
         // 查阅 https://github.com/vuejs/vue-docs-zh-cn/blob/master/vue-cli/cli-service.md#configuring-proxy配置代理
         proxy:{   // string | Object
 
-            // '/sharebike': {
-            //     target: 'http://110.86.21.246:8999',
-            //     ws: true,
-            //     changeOrigin: true
-            // },
+            '/sharebike': {
+                target: 'http://110.86.21.246:8999',
+                ws: true,
+                changeOrigin: true
+            },
 
             // '/': {
             //     target: 'http://110.86.21.246:8880',
             //     ws: true,
             //     changeOrigin: true
             // }
-
-            '/': {
-                target: 'http://192.168.0.112:8080',
-                ws: true,
-                changeOrigin: true
-            }
+            //
+            // '/': {
+            //     target: 'http://192.168.0.112:8080',
+            //     ws: true,
+            //     changeOrigin: true
+            // }
         },
         before: app => {}
     },
