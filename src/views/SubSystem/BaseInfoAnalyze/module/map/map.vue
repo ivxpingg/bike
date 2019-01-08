@@ -27,8 +27,8 @@
                     total: 0,     // 总行数
                 },
                 searchParams2:{
-                    longitude: '',
-                    latitude: '',
+                    longitude: 118.133285,
+                    latitude: 24.516861,
                     km: 0.5,
                     zoom: 15
                 },
@@ -52,8 +52,9 @@
         mounted() {
             initBMap('baidu_map').then((m) => {
                 this.map = m;
-                this.getData();
-
+                // this.getData();
+                this.getData2();
+                this.setMapEvent();
             });
         },
         methods: {
@@ -124,7 +125,7 @@
             getData2() {
                 this.$http({
                     method: 'get',
-                    url: '/orbit/getNear',
+                    url: '/bikeStatus/getNear',  // GET /bikeStatus/getNear
                     params: {
                         longitude: this.searchParams2.longitude,
                         latitude: this.searchParams2.latitude,

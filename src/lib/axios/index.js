@@ -21,7 +21,7 @@ axios.defaults.withCredentials=true;
 
 const Ajax = axios.create({
     baseURL: ajaxUrl,
-    timeout: 30000,
+    timeout: 3000000,
     transformRequest: [function transformRequest(data, headers) {
         /* 把类似content-type这种改成Content-Type */
         let keys = Object.keys(headers);

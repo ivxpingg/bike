@@ -84,6 +84,7 @@
                     method: 'get',
                     url: '/orbit/getArea'
                 }).then((res) => {
+
                     this.dataCleaning(res.data || []);
                 })
             },
@@ -95,7 +96,7 @@
 
                 this.obj['岛内'].area = '岛内';
 
-                this.obj['岛内'].count = parseFloat(this.obj['思明区'].count) + parseFloat(this.obj['湖里区'].count);
+                this.obj['岛内'].count = (parseFloat(this.obj['思明区'].count) + parseFloat(this.obj['湖里区'].count)).toFixed(2);
 
 
                 this.obj['思明区'].detail.forEach((v, idx) => {

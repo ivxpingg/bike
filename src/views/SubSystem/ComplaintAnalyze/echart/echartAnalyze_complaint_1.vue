@@ -1,29 +1,6 @@
 <template>
     <div class="echartAnalyze_complaint_1-container">
         <div class="echart" ref="echart"></div>
-        <!--<Form class="form" inline>-->
-            <!--<FormItem>-->
-                <!--<Select v-model="type"-->
-                        <!--size="small"-->
-                        <!--placeholder="全部"-->
-                        <!--class="custom-input-style">-->
-                    <!--&lt;!&ndash;<Option value="1">按年统计</Option>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<Option value="2">按月统计</Option>&ndash;&gt;-->
-                <!--</Select>-->
-            <!--</FormItem>-->
-            <!--<FormItem>-->
-                <!--<Select v-model="value"-->
-                        <!--size="small"-->
-                        <!--class="custom-input-style" >-->
-                    <!--<Option value="1">刹车不灵</Option>-->
-                    <!--<Option value="2">车身损坏</Option>-->
-                    <!--<Option value="3">无法开锁</Option>-->
-                    <!--<Option value="4">押金不退</Option>-->
-                    <!--<Option value="5">轮胎没气</Option>-->
-                    <!--<Option value="6">其他</Option>-->
-                <!--</Select>-->
-            <!--</FormItem>-->
-        <!--</Form>-->
     </div>
 </template>
 
