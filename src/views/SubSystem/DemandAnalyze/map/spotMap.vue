@@ -120,7 +120,8 @@
                     { title: '操作', width: 160, align: 'center',
                         render: (h, params) => {
                             let list = [];
-                            if (params.row.status === 'complete') {
+
+                            if (params.row.status === '1') {
                                 list.push(h('a', {
                                     style: {
                                         color: '#FFF',
@@ -129,11 +130,12 @@
                                         'padding-right': '7px'
                                     },
                                     on: {
-                                        click() {
+                                        click:() => {
+
                                             if (!this.map) {
                                                 this.$Message.info('地图初始化中,请稍后...');
                                             }
-                                            this.getData_for_map(params.rows.id);
+                                            this.getData_for_map(params.row.id);
                                             this.modal_hotArea = false;
                                         }
                                     }
@@ -157,34 +159,7 @@
                         }
                     },
                 ],
-                tableData: [
-                    {
-                        '1': '2018-9-1 18:00',
-                        '2': '20000',
-                        '3': '200',
-                        '4': '112',
-                        'status': '0'
-                    },
-                    {
-                        '1': '2018-9-1 18:00',
-                        '2': '20000',
-                        '3': '200',
-                        '4': '112',
-                        'status': '1'
-                    },
-                    {
-                        '1': '2018-9-1 18:00',
-                        '2': '20000',
-                        '3': '200',
-                        '4': '112',
-                        'status': '2'
-                    },
-                    { '1': '2018-9-1 18:00', '2': '20000',  '3': '200', '4': '112', 'status': '34' },
-                    { '1': '2018-9-1 18:00', '2': '20000',  '3': '200', '4': '112', 'status': '34' },
-                    { '1': '2018-9-1 18:00', '2': '20000',  '3': '200', '4': '112', 'status': '34' },
-                    { '1': '2018-9-1 18:00', '2': '20000',  '3': '200', '4': '112', 'status': '34' },
-
-                ],
+                tableData: [],
 
                 // 新
 
@@ -203,8 +178,19 @@
                         { type: 'number', message: '分析半径必须是数值！', trigger: 'blur'}],
                     minpts: [{ required: true, type: 'number', message: '车辆数量不能为空！', trigger: 'blur' },
                         {type: 'number', message: '车辆数量必须是数值！', trigger: 'blur'}]
-                }
+                },
+
+                // 存放地图元素
+                mapv: null,
+
+                // 定时器
+                timeout: null,
             };
+        },
+        beforeDestroy() {
+            if (this.timeout) {
+                clearInterval(this.timeout);
+            }
         },
         mounted() {
             initBMap('spot_map').then((m) => {
@@ -213,6 +199,12 @@
             });
 
             this.getTableData();
+
+            this.timeout = setInterval(() => {
+                this.getTableData();
+
+            },10000);
+
         },
         methods: {
             /**
@@ -263,7 +255,7 @@
                     draw: 'simple'
                 };
                 var dataSet = new mapv.DataSet(this.points);
-                var mapvLayer = new mapv.baiduMapLayer(this.map, dataSet, options);
+                this.mapvLayer = new mapv.baiduMapLayer(this.map, dataSet, options);
 
             },
             test2() {
@@ -334,9 +326,9 @@
                     if (valide) {
                         this.$Spin.show();
                         this.$http({
-                            method: 'post',
+                            method: 'get',
                             url: '/orbit/getHotArea',
-                            data: JSON.stringify(this.formData)
+                            params: this.formData//JSON.stringify(this.formData)
                         }).then((res) => {
                             this.$Spin.hide();
                             this.modal_param = false;
@@ -371,6 +363,9 @@
 
             // 渲染地图结果
             renderPoint(list) {
+
+                this.clearPoint();
+                this.points = [];
                 list.forEach((val) => {
 
                     let p = [val.latitude, val.longitude];
@@ -386,7 +381,7 @@
                 var options = {
                     fillStyle: 'rgba(255, 50, 50, 0.6)',
                     shadowColor: 'rgba(255, 50, 50, 1)',
-                    shadowBlur: 30,
+                    shadowBlur: 5,
                     globalCompositeOperation: 'lighter',
                     methods: {
                         click: function (item) {
@@ -397,8 +392,15 @@
                     draw: 'simple'
                 };
                 var dataSet = new mapv.DataSet(this.points);
-                var mapvLayer = new mapv.baiduMapLayer(this.map, dataSet, options);
+                this.mapvLayer = new mapv.baiduMapLayer(this.map, dataSet, options);
+            },
+            clearPoint() {
 
+                if (this.mapvLayer) {
+                    this.mapvLayer.hide();
+                    this.mapvLayer.destroy();
+                    this.mapvLayer = null;
+                }
             }
         }
     }
