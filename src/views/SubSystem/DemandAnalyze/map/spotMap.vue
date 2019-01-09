@@ -187,6 +187,14 @@
                 timeout: null,
             };
         },
+        watch: {
+            searchParams: {
+                deep: true,
+                handler() {
+                    this.getTableData();
+                }
+            }
+        },
         beforeDestroy() {
             if (this.timeout) {
                 clearInterval(this.timeout);
@@ -196,10 +204,12 @@
             initBMap('spot_map').then((m) => {
                 this.map = m;
                 // this.getData();
+
+                // 首次加载
+                this.getTableData(true);
             });
 
             this.getTableData();
-
             this.timeout = setInterval(() => {
                 this.getTableData();
 
@@ -307,8 +317,18 @@
                 this.modal_param = true;
             },
 
+            // 首次加载地图渲染
+            firstRender() {
+                for (let i = 0; i < this.tableData.length; i++) {
+                    if (this.tableData[i].status === '1') {
+                        this.getData_for_map(this.tableData[i].id);
+                        return;
+                    }
+                }
+            },
+
             // 获取表格数据
-            getTableData() {
+            getTableData(isFirst) {
                 this.$http({
                     method: 'post',
                     url: '/hotAreaStatus/list',
@@ -317,6 +337,9 @@
                     if (res.code === 'SUCCESS') {
                         this.tableData = res.data.records;
                         this.searchParams.total = res.data.total;
+                    }
+                    if (isFirst) {
+                        this.firstRender();
                     }
                 })
             },
