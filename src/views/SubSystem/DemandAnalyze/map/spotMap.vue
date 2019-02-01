@@ -382,6 +382,20 @@
                         this.renderPoint(res.data);
                     }
                 })
+            //     this.$http({
+            //         method: 'get',
+            //         url: '/orbit/test',
+            //         params: {
+            //             minpts: 10,
+            //             radius: 100,
+            //             startTime: '2019-01-16 09:00:00'
+            //         }
+            //
+            //     }).then((res) => {
+            //         if (res.code === 'SUCCESS') {
+            //             this.renderPoint(res.data);
+            //         }
+            //     })
             },
 
             // 渲染地图结果

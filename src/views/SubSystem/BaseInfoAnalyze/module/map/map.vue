@@ -16,8 +16,10 @@
     import img_hellobike from './images/hellobike.png';
     import img_nine from './images/nine.png';
     import img_mobai from './images/mobai.png';
+    import testMixin from './testMixin';
     export default {
         name: 'baiduMap',
+        mixins: [testMixin],
         components: {vBInfo},
         data() {
             return {
@@ -52,9 +54,9 @@
         mounted() {
             initBMap('baidu_map').then((m) => {
                 this.map = m;
-                // this.getData();
-                this.getData2();
-                this.setMapEvent();
+                this.getData_test();
+                // this.getData2();
+                // this.setMapEvent();
             });
         },
         methods: {
@@ -86,26 +88,8 @@
                 });
             },
 
-            test(list) {
-                let that =this;
 
-                list.forEach((val) => {
-
-                    let p = val.cur_position.split(',');
-                    this.markers.push(new BMap.Marker(new BMap.Point(p[1], p[0])));
-                });
-
-                this.markerClusterer = new BMapLib.MarkerClusterer(this.map, {
-                    markers:this.markers,
-                    gridSize: 10,
-                    maxZoom: 18,
-                    isAverageCenter: true,
-                    // minClusterSize: 5
-                });
-
-            },
-
-
+            // 设置地图事件
             setMapEvent() {
                 let that = this;
                 this.map.addEventListener('dragend', () => {
