@@ -81,7 +81,7 @@
             return {
                 searchParams: {
                     current: 1,
-                    size: 10,
+                    size: 7,
                     total: 120,
                     condition: {
                         searchKey: ''
@@ -111,6 +111,12 @@
                     { title: '99单车', width: 180, align: 'center',
                         render: (h, params) => {
                             let str = `${params.row['99bikecount']}车次，${params.row['99bikemileage']}km`;
+                            return h('div', str);
+                        }
+                    },
+                    { title: '青桔单车', width: 180, align: 'center',
+                        render: (h, params) => {
+                            let str = `${params.row['qingjubikecount']}车次，${params.row['qingjubikemileage']}km`;
                             return h('div', str);
                         }
                     },

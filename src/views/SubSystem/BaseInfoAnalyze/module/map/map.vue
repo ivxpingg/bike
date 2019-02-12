@@ -54,9 +54,9 @@
         mounted() {
             initBMap('baidu_map').then((m) => {
                 this.map = m;
-                this.getData_test();
-                // this.getData2();
-                // this.setMapEvent();
+                // this.getData_test();
+                this.getData2();
+                this.setMapEvent();
             });
         },
         methods: {
