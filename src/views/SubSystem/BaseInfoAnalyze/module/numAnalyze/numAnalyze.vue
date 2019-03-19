@@ -2,7 +2,7 @@
     <div class="numAnalyze-container">
         <div class="num-panel" @click="modal_marketShares_open">
             <div class="title">单车运营企业数量</div>
-            <div class="value">4</div>
+            <div class="value">5</div>
             <div class="angle angle-1"></div>
             <div class="angle angle-2"></div>
             <div class="angle angle-3"></div>

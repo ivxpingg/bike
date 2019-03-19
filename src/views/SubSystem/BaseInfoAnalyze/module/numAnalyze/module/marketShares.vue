@@ -62,6 +62,20 @@
                             </div>
                         </div>
                     </i-col>
+
+                    <i-col span="8">
+                        <div class="company-info">
+                            <div class="logo">
+                                <img src="./img/qingju.png" alt="">
+                            </div>
+                            <div class="text-panel">
+                                <div>青桔单车</div>
+                                <div>接入时间：{{baseInfo.qjbike.date}}</div>
+                                <div>车辆数：{{baseInfo.qjbike.bikeCount}}</div>
+                                <div>注册用户数：{{baseInfo.qjbike.userCount}}</div>
+                            </div>
+                        </div>
+                    </i-col>
                 </Row>
             </div>
         </Modal>
@@ -96,6 +110,11 @@
                         date: '',
                         bikeCount: 0,
                         userCount: 0
+                    },
+                    qjbike: {
+                        date: '',
+                        bikeCount: 0,
+                        userCount: 0
                     }
                 },
 
@@ -120,6 +139,9 @@
                             break;
                         case '99单车':
                             this.baseInfo.nnbike.date = MOMENT(v.updateTime).format('YYYY年MM月DD日');
+                            break;
+                        case '青桔单车':
+                            this.baseInfo.qjbike.date = MOMENT(v.updateTime).format('YYYY年MM月DD日');
                             break;
                     }
                 });
@@ -160,6 +182,14 @@
                                 }
                             }
                             break;
+                        case '青桔单车':
+                            for (let i = 0; i < val.length; i++) {
+                                if (v.id === val[i].id) {
+                                    this.baseInfo.qjbike.bikeCount = val[i].bicycleCount;
+                                    break;
+                                }
+                            }
+                            break;
                     }
                 });
             },
@@ -194,6 +224,14 @@
                             for (let i = 0; i < val.length; i++) {
                                 if (v.id === val[i].id) {
                                     this.baseInfo.nnbike.userCount = val[i].peopleCount;
+                                    break;
+                                }
+                            }
+                            break;
+                        case '青桔单车':
+                            for (let i = 0; i < val.length; i++) {
+                                if (v.id === val[i].id) {
+                                    this.baseInfo.qjbike.userCount = val[i].peopleCount;
                                     break;
                                 }
                             }
