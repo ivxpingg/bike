@@ -44,10 +44,10 @@
                                 }
                             },
                             data:[
-                                {value:55261, name:'ofo小黄车'},
-                                {value:86187, name:'摩拜单车'},
-                                {value:13436, name:'hello单车'},
-                                {value:7812, name:'99单车'}
+                                // {value:55261, name:'ofo小黄车'},
+                                // {value:86187, name:'摩拜单车'},
+                                // {value:13436, name:'hello单车'},
+                                // {value:7812, name:'99单车'}
                             ]
                         },
                         {
@@ -75,10 +75,10 @@
                                 }
                             },
                             data:[
-                                {value:394357, name:'ofo小黄车'},
-                                {value:674141, name:'摩拜单车'},
-                                {value:86429, name:'hello单车'},
-                                {value:53747, name:'99单车'}
+                                // {value:394357, name:'ofo小黄车'},
+                                // {value:674141, name:'摩拜单车'},
+                                // {value:86429, name:'hello单车'},
+                                // {value:53747, name:'99单车'}
                             ]
                         }
                     ]
@@ -88,6 +88,7 @@
         mounted() {
             this.initEchart();
             this.handleOption();
+            this.getData();
         },
         methods: {
             handleOption() {
@@ -95,7 +96,55 @@
                 this.myOption = Merge.recursive(true, this.pieOption, this.myOption);
 
                 this.setOption();
+            },
+            getData() {
+                this.$http({
+                    method: 'get',
+                    url: '/statistics/companyOperate',
+                    params: {
+                        type: this.type
+                    }
+                }).then((res) => {
+                    if (res.code === 'SUCCESS') {
+                        this.resetOption(res.data);
+                    }
+                })
+            },
+            resetOption(data) {
+                this.myOption.legend.data = [];
+                this.myOption.series[0].data = [];
+                this.myOption.series[1].data = [];
+
+                let company = [];
+                data.month.forEach(val => {
+
+                    let idx = this.myOption.legend.data.indexOf(val.company);
+                    if (idx === -1) {
+                        this.myOption.legend.data.push(val.company);
+                    }
+
+                    this.myOption.series[0].data.push({
+                        value: val.count,
+                        name: val.company
+                    });
+                });
+
+                data.year.forEach(val => {
+
+                    let idx = company.indexOf(val.company);
+                    if (idx === -1) {
+                        this.myOption.legend.data.push(val.company);
+                    }
+
+                    this.myOption.series[1].data.push({
+                        value: val.count,
+                        name: val.company
+                    });
+                });
+
+                this.handleOption();
             }
+
         }
     }
 </script>

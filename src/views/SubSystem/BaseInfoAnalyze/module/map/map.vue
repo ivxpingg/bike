@@ -16,6 +16,7 @@
     import img_hellobike from './images/hellobike.png';
     import img_nine from './images/nine.png';
     import img_mobai from './images/mobai.png';
+    import img_qingju from './images/qingju.png';
     import testMixin from './testMixin';
     export default {
         name: 'baiduMap',
@@ -80,6 +81,7 @@
                         case 'hello单车': myIcon = new BMap.Icon('./hellobike.png', new BMap.Size(16,16)); break;
                         case '摩拜单车': myIcon = new BMap.Icon('./mobai.png', new BMap.Size(16,16)); break;
                         case '99单车': myIcon = new BMap.Icon('./nine.png', new BMap.Size(16,16)); break;
+                        case '青桔单车': myIcon = new BMap.Icon('./qingju.png', new BMap.Size(16,16)); break;
                     }
 
                     myIcon.setImageSize(new BMap.Size(16,16));
@@ -131,6 +133,7 @@
                         case 'hello单车': myIcon = new BMap.Icon(img_hellobike, new BMap.Size(16,16)); break;
                         case '摩拜单车': myIcon = new BMap.Icon(img_mobai, new BMap.Size(16,16)); break;
                         case '99单车': myIcon = new BMap.Icon(img_nine, new BMap.Size(16,16)); break;
+                        case '青桔单车': myIcon = new BMap.Icon(img_qingju, new BMap.Size(16,16)); break;
                     }
 
                     myIcon.setImageSize(new BMap.Size(16,16));

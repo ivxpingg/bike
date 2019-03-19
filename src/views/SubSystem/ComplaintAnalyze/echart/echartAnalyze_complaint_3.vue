@@ -74,6 +74,7 @@
         mounted() {
             this.initEchart();
             this.handleOption();
+            this.getData();
         },
         methods: {
             handleOption() {
@@ -81,6 +82,31 @@
 
                 this.myOption = Merge.recursive(true, this.wordCloudOption, this.myOption);
                 this.setOption();
+            },
+            // 按类型分组
+            getData() {
+                this.$http({
+                    methods: 'get',
+                    url: '/violation/status'
+                }).then(res => {
+                    if (res.code === 'SUCCESS') {
+                        this.setData(res.data || []);
+                    }
+                })
+            },
+            // 赋值
+            setData(data) {
+                this.myOption.series[0].data = [];
+                data.forEach((val, idx) => {
+                    this.myOption.series[0].data.push({
+                        name: val.status,
+                        value: val.count,
+                        textStyle: this.createRandomItemStyle(idx)
+                    });
+
+                });
+
+                this.handleOption();
             }
         }
     }

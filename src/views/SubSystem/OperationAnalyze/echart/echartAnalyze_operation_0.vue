@@ -6,24 +6,24 @@
                 <Select v-model="type"
                         size="small"
                         class="custom-input-style">
-                    <Option value="1">按年统计</Option>
-                    <Option value="2">按月统计</Option>
+                    <Option value="year">按年统计</Option>
+                    <Option value="month">按月统计</Option>
                 </Select>
             </FormItem>
-            <FormItem>
-                <Select v-model="area"
-                        size="small"
-                        placeholder="全部"
-                        clearable
-                        class="custom-input-style" >
-                    <Option value="1">思明区</Option>
-                    <Option value="2">湖里区</Option>
-                    <Option value="3">同安区</Option>
-                    <Option value="4">集美区</Option>
-                    <Option value="5">海沧区</Option>
-                    <Option value="6">翔安区</Option>
-                </Select>
-            </FormItem>
+            <!--<FormItem>-->
+                <!--<Select v-model="area"-->
+                        <!--size="small"-->
+                        <!--placeholder="全部"-->
+                        <!--clearable-->
+                        <!--class="custom-input-style" >-->
+                    <!--<Option value="1">思明区</Option>-->
+                    <!--<Option value="2">湖里区</Option>-->
+                    <!--<Option value="3">同安区</Option>-->
+                    <!--<Option value="4">集美区</Option>-->
+                    <!--<Option value="5">海沧区</Option>-->
+                    <!--<Option value="6">翔安区</Option>-->
+                <!--</Select>-->
+            <!--</FormItem>-->
         </Form>
     </div>
 </template>
@@ -36,8 +36,7 @@
         mixins: [echartMixin],
         data() {
             return {
-                type: '1',
-                area: '',
+                type: 'year',
                 myOption: {
                     grid: {
                         top: 60
@@ -73,76 +72,13 @@
         },
         watch: {
             type(val) {
-                let option;
-                if (val === '1') {
-                    option = {
-                        xAxis: [{
-                            show: false,
-                            data: ['2016年', '2017年', '2018年']
-                        }],
-                        series: [
-                            {
-                                name: 'ofo小黄车',
-                                type: 'bar',
-                                data: [153799,512664,394357]
-                            },
-                            {
-                                name: '摩拜单车',
-                                type: 'bar',
-                                data: [262915,876384,674141]
-                            },
-                            {
-                                name: 'hello单车',
-                                type: 'bar',
-                                data: [28522,95072,86429]
-                            },
-                            {
-                                name: '99单车',
-                                type: 'bar',
-                                data: [16930,56435,53747]
-                            }
-                        ]
-                    }
-                }
-                else {
-                    option = {
-                        xAxis: [{
-                            show: false,
-                            data: ['6月','7月','8月','9月','10月','11月']
-                        }],
-                        series: [
-                            {
-                                name: 'ofo小黄车',
-                                type: 'bar',
-                                data: [48348,50892,53571,60876,59682,55261]
-                            },
-                            {
-                                name: '摩拜单车',
-                                type: 'bar',
-                                data: [62435,78044,97555,99545,94805,86187]
-                            },
-                            {
-                                name: 'hello单车',
-                                type: 'bar',
-                                data: [11773,12013,12258,12509,13167,13436]
-                            },
-                            {
-                                name: '99单车',
-                                type: 'bar',
-                                data: [6845,6985,7127,7273,7656,7812]
-                            }
-                        ]
-                    }
-
-                }
-                this.myOption = Merge.recursive(true, this.myOption, option);
-
-                this.setOption();
+                this.getData();
             }
         },
         mounted() {
             this.initEchart();
             this.handleOption();
+            this.getData();
         },
         methods: {
             handleOption() {
@@ -150,6 +86,44 @@
 
                 this.myOption = Merge.recursive(true, this.barOption, this.myOption);
                 this.setOption();
+            },
+            getData() {
+                this.$http({
+                    method: 'get',
+                    url: '/statistics/bikeOperate',
+                    params: {
+                        type: this.type
+                    }
+                }).then((res) => {
+                    if (res.code === 'SUCCESS') {
+                        this.resetOption(res.data);
+                    }
+                })
+            },
+            resetOption(data) {
+                this.myOption.xAxis[0].data = [];
+                this.myOption.series = [];
+                let company = [];
+                data.forEach(val => {
+                    if (this.myOption.xAxis[0].data.indexOf(val.datetime) === -1) {
+                        this.myOption.xAxis[0].data.push(val.datetime);
+                    }
+
+                    let idx = company.indexOf(val.company);
+                    if (idx === -1) {
+                        company.push(val.company);
+                        this.myOption.series.push({
+                            name: val.company,
+                            type: 'bar',
+                            data: []
+                        });
+
+                        idx = company.length - 1;
+                    }
+                    this.myOption.series[idx].data.push(val.count);
+                });
+
+                this.handleOption();
             }
         }
     }

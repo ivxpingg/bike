@@ -69,7 +69,7 @@
             getData() {
                 this.$http({
                     methods: 'get',
-                    url: '/violation/type'
+                    url: '/violation/path'
                 }).then(res => {
                     if (res.code === 'SUCCESS') {
                         this.setData(res.data || []);
@@ -80,28 +80,14 @@
             setData(data) {
                 this.myOption.legend.data = [];
                 this.myOption.series[0].data = [];
-                let otherCount = 0;
                 data.forEach(val => {
-                    if (val.TYPE) {
-                        this.myOption.legend.data.push(val.TYPE);
-                        this.myOption.series[0].data.push({
-                            value: val.COUNT,
-                            name: val.TYPE
-                        });
-                    }
-                    else {
-                        otherCount += (val.COUNT || 0);
-                    }
+                    this.myOption.legend.data.push(val.sourcewaypath);
+                    this.myOption.series[0].data.push({
+                        value: val.count,
+                        name: val.sourcewaypath
+                    });
 
                 });
-
-                if (otherCount > 0) {
-                    this.myOption.legend.data.push('其它');
-                    this.myOption.series[0].data.push({
-                        value: otherCount,
-                        name: '其它'
-                    });
-                }
 
                 this.handleOption();
             }

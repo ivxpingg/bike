@@ -71,17 +71,17 @@
                 },
                 tableColumns: [
                     { title: '序号', width: 60, type: 'index', },
-                    { title: '时间', width: 120, align: 'center', key: 'CREATEDON',
+                    { title: '时间', width: 120, align: 'center', key: 'createdon',
                         render:(h, params) => {
-                            return h('div', params.row.CREATEDON ? MOMENT(params.row.CREATEDON).format('YYYY-MM-DD') : '');
+                            return h('div', params.row.createdon ? MOMENT(params.row.createdon).format('YYYY-MM-DD') : '');
                         }
                     },
-                    { title: '区域', minWidth: 120, align: 'center', key: 'AREANAME' },
+                    { title: '区域', minWidth: 120, align: 'center', key: 'areaname' },
                     // { title: '投诉编号', width: 100, align: 'center', key: 'PETITIONID' },
-                    { title: '投诉地点', width: 100, align: 'center', key: 'EVENTADDRESS' },
-                    { title: '投诉电话', width: 110, align: 'center', key: 'TEL' },
-                    { title: '投诉来源', width: 100, align: 'center', key: 'SOURCEWAYPATH' },
-                    { title: '投诉状态', width: 90, align: 'center', key: 'STATUS' }
+                    { title: '投诉地点', width: 100, align: 'center', key: 'eventaddress' },
+                    { title: '投诉电话', width: 110, align: 'center', key: 'tel' },
+                    { title: '投诉来源', width: 100, align: 'center', key: 'sourcewaypath' },
+                    { title: '投诉状态', width: 90, align: 'center', key: 'status' }
                 ],
                 tableData: [],
                 tableLoading: false

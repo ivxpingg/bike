@@ -5,7 +5,7 @@
                 <vSxcBox class="box" title="地区占比">
                     <vEchartAnalyze_complaint_0></vEchartAnalyze_complaint_0>
                 </vSxcBox>
-                <vSxcBox class="box" title="投诉类型分析">
+                <vSxcBox class="box" title="投诉来源分析">
                     <vEchartAnalyze_complaint_1></vEchartAnalyze_complaint_1>
                 </vSxcBox>
             </i-col>
@@ -23,7 +23,7 @@
                 <vSxcBox class="box" title="投诉趋势分析">
                     <vEchartAnalyze_complaint_2></vEchartAnalyze_complaint_2>
                 </vSxcBox>
-                <vSxcBox class="box" title="舆情信息">
+                <vSxcBox class="box" title="投诉处理分析">
                     <vEchartAnalyze_complaint_3></vEchartAnalyze_complaint_3>
                 </vSxcBox>
             </i-col>

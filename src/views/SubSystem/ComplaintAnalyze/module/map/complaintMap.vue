@@ -35,7 +35,8 @@
                 this.$http({
                     method: 'post',
                     // url: '/bicyclestate/list', //
-                    url: '/violation/list',
+                    // url: '/violation/list',
+                    url: '/violation/listWithPosition',
                     data: JSON.stringify(this.searchParams)
                 }).then((res) => {
                     if(res.code === 'SUCCESS'){
@@ -55,9 +56,9 @@
 
                 list.forEach((val) => {
 
-                    if (val.XLATITUDE && val.YLATITUDE) {
+                    if (val.xlatitude && val.ylatitude) {
 
-                        let p = [val.XLATITUDE, val.YLATITUDE];
+                        let p = [val.xlatitude, val.ylatitude];
 
 
                         // let p = [val.XLATITUDE, val.YLATITUDE];
@@ -72,12 +73,12 @@
                         marker.addEventListener("click", function (e) {
                             let p = e.target;
 
-                            let time = MOMENT(p.info.CREATEDON).format('YYYY年MM月DD日')
+                            let time = MOMENT(p.info.createdon).format('YYYY年MM月DD日')
 
                             let html = `<div>投诉时间: ${time}</div>
-                                    <div>投诉地点: ${p.info.AREANAME}</div>
-                                    <div>投诉状态: ${p.info.STATUS}</div>
-                                    <div>投诉内容: ${p.info.CONTENT}</div>`;
+                                    <div>投诉地点: ${p.info.areaname}</div>
+                                    <div>投诉状态: ${p.info.status}</div>
+                                    <div>投诉内容: ${p.info.content}</div>`;
 
 
                             let point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
