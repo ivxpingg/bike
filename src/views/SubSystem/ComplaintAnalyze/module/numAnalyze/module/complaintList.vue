@@ -28,7 +28,7 @@
                     <!--</Select>-->
                 <!--</FormItem>-->
                 <FormItem>
-                    <Button type="info" icon="md-cloud-download" size="small">导出</Button>
+                    <Button type="info" icon="md-cloud-download" :to="toDownUrl" target="_blank" size="small">导出</Button>
                 </FormItem>
             </Form>
             <div class="ivx-table-box">
@@ -56,9 +56,15 @@
 <script>
     import modalMixin from '../../../../../../lib/mixin/modalMixin';
     import MOMENT from 'moment';
+    import Config from '../../../../../../config';
     export default {
         name: 'complaintList',  // 投述事件列表
         mixins: [modalMixin],
+        computed: {
+            toDownUrl() {
+                return  Config[Config.env].origin + Config[Config.env].ajaxUrl + '/violation/exportExcel';
+            }
+        },
         data() {
             return {
                 searchParams: {
